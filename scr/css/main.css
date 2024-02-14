@@ -1,0 +1,372 @@
+:root {
+  --bg: #dedede;
+  --fg: #ffffff;
+  --primary: #4a4a4a;
+  --sent: #fec4ff;
+  --received: #ededed;
+  --accent: #f241ef;
+  --textbar-primary: #dbdbdb;
+  --textbar-secondary: #eebfef;
+  --sidebar-highlight: #f5f5f5;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+		body {
+			height: 100%;
+		}
+
+		main {
+			background: var(--bg);
+			height: 100%;
+
+			display: grid;
+			grid-template-columns: 20% 1fr;
+			grid-template-rows: 1fr;
+			grid-template-areas: 'sidebar content';
+		}
+
+		aside {
+			grid-area: sidebar;
+		}
+
+    .bcont {
+      display: none!important;
+    }
+
+button:disabled {
+  filter: brightness(70%);
+}
+
+.card {
+  color: var(--primary) !important;
+  background-color: var(--fg);
+}
+
+.popup {
+  position: absolute;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+
+button:disabled:hover {
+  filter: brightness(70%);
+}
+
+.time-block {
+  text-align:center;
+}
+
+		/* On mobile, we simply hide the navigation */
+		@media screen and (max-width: 900px) {
+			.bcont {
+				display: initial;
+			}
+
+			/* The grid is also changed */
+			main {
+				grid-template-columns: 0 1fr;
+			}
+		}
+
+		#content {
+			grid-area: content;
+
+			/* The next two lines are necessary to support scrolling in the chat */
+			overflow: hidden;
+			height: 100%;
+
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: auto 1fr auto;
+			grid-template-areas: 'header'
+				'content'
+				'footer';
+		}
+
+		header {
+			grid-area: header;
+		}
+
+		#chat {
+			grid-area: content;
+			overflow: hidden;
+      background-color: var(--fg);
+		}
+
+		/* This block is necessary to support scrolling in the chat area */
+		#chat>.card-content {
+			overflow: auto;
+			max-height: 100%;
+		}
+
+		footer {
+			grid-area: footer;
+		}
+
+		#header-box {
+			display: flex;
+		}
+
+		#header-box>div {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.name-wrap {
+			flex-grow: 1;
+		}
+
+		.image-wrap span {
+			font-size: 2rem;
+		}
+
+		#form-wrap {
+			display: flex;
+		}
+
+		#form-wrap>div {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.message-wrap {
+			flex-grow: 1;
+		}
+
+		.chat-message-wrapper {
+			display: flex;
+			margin-bottom: 1rem;
+		}
+
+		.chat-message {
+			border-radius: .25rem;
+			position: relative;
+			width: 100%;
+
+			/* radius of the tail */
+			--r: 25px;
+			/* size of the tail */
+			--t: 15px;
+
+			padding: calc(2*var(--r)/3);
+			-webkit-mask:
+				radial-gradient(var(--t) at var(--_d) 0, #0000 98%, #000 102%) var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat,
+				conic-gradient(at var(--r) var(--r), #000 75%, #0000 0) calc(var(--r)/-2) calc(var(--r)/-2) padding-box,
+				radial-gradient(50% 50%, #000 98%, #0000 101%) 0 0/var(--r) var(--r) space padding-box;
+		}
+
+		/* On large screens, don't use the full width for message bubbles */
+		@media screen and (min-width: 769px) {
+			.chat-message {
+				width: auto;
+				max-width: 75%;
+				min-width: 100px;
+			}
+
+			.chat-message-push {
+				flex-grow: 1;
+			}
+		}
+
+		@media screen and (min-width: 1408px) {
+			.chat-message {
+				max-width: 33%;
+			}
+		}
+
+		.chat-message.received {
+			/* border: #6C8EBF 1px solid; */
+			background: var(--received);
+
+			--_d: 0%;
+			border-left: var(--t) solid #0000;
+			margin-right: var(--t);
+			place-self: start;
+		}
+
+		.chat-message.sent {
+			/* border: #82B366 1px solid; */
+			background: var(--sent);
+
+			--_d: 100%;
+			border-right: var(--t) solid #0000;
+			margin-left: var(--t);
+			place-self: end;
+      text-align:right;
+		}
+
+		.chat-message-content {
+			word-wrap: break-word;
+		}
+
+		/* Don't break words in the chat list */
+		nav .panel-block {
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+    #overlayn {
+  position: fixed; /* Sit on top of the page content */
+  /*display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,1); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+    }
+
+    .cma {
+      color:var(--accent) !important;
+      border-color:var(--accent) !important;
+      background-color:transparent !important;
+    }
+
+    .cma:hover {
+      color:var(--fg) !important;
+      border-color:var(--accent) !important;
+      background-color:var(--accent) !important;
+    }
+
+    .cma:focus {
+      background-color:var(--accent) !important;
+      border-color:transparent !important;
+      color:var(--fg) !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .cma2 {
+      color:var(--primary) !important;
+      border-color:var(--primary) !important;
+      background-color:transparent !important;
+    }
+
+    .cma2:hover {
+      color:var(--fg) !important;
+      border-color:var(--primary) !important;
+      background-color:var(--primary) !important;
+    }
+
+    .cma2:focus {
+      background-color:var(--accent) !important;
+      border-color:transparent !important;
+      color:var(--fg) !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .cma3:focus {
+      border-color:var(--accent) !important;
+      outline: 1px !important;
+      box-shadow: none !important;
+    }
+
+.cma3 {
+  border-color:var(--primary);
+  color:var(--primary);
+  background-color:var(--fg);
+}
+
+.cma3:hover {
+  border-color:var(--primary);
+  color:var(--primary);
+  background-color:var(--fg);
+}
+
+.accented {
+  color:var(--accent);
+}
+
+
+    .tiblock {
+    align-items: center;
+    display: flex;
+    height: 17px;
+}
+
+.ticontainer .tidot {
+    background-color: #90949c;
+}
+
+.tidot {
+    -webkit-animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+    border-radius: 2px;
+    display: inline-block;
+    height: 4px;
+    margin-right: 2px;
+    width: 4px;
+}
+
+@-webkit-keyframes mercuryTypingAnimation{
+0%{
+  -webkit-transform:translateY(0px)
+}
+28%{
+  -webkit-transform:translateY(-5px)
+}
+44%{
+  -webkit-transform:translateY(0px)
+}
+}
+
+.tidot:nth-child(1){
+-webkit-animation-delay:200ms;
+}
+.tidot:nth-child(2){
+-webkit-animation-delay:300ms;
+}
+.tidot:nth-child(3){
+-webkit-animation-delay:400ms;
+}
+
+    
+.timeblock {
+  text-align:center;
+  width:100%;
+  position:relative;
+}
+
+.visualb {
+  background-color:var(--sidebar-highlight);
+}
+
+.iconuni {
+  color:var(--primary);
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--bg) var(--fg);
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--fg);
+    border-radius: 0px 6px 6px 0px
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--bg);
+    border-radius: 10px;
+    border: 3px solid var(--fg);
+  }
