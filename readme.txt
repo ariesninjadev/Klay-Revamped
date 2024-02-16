@@ -1,10 +1,29 @@
-This chat application, as of 09/07/23, is only intented for 2 person use. Therefore, until version 1.6 is released, New enviroments need to be created for each chat, and each needs to be configured manually.
 
-CURRENT VERSION: 1.4 (Private) BETA
+![Logo](https://i.ibb.co/6wXG197/ADKq-Nb-PAYVSXLEWj-H-6-Kx-LJty-Ai-JO1u-XH1-Gn-W-EHWc-r-Jks-Qfp-CN4th-Aldlm-Hx4r-HHCEgz2ux-Ga-Hh-XGYv.png)
 
-To create a new chat instance prior to 1.6, please carefully follow these steps:
+![MIT License](https://img.shields.io/badge/License-MIT-green.svg) 
 
-1. Modify the collection name in the mon.js file. It should be the first line. Not changing this will simply store messages to whatever chat was cloned.
-2. Update the "user1" and "user2" variables in the server.js file. These values are transfered in a login handshake to every client connected.
+![Version 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue)
 
-This chat is not intended for large-scale use. Please rework backend before upscaling.
+Klay is a modern, secure web-chat made for easy communication and distributed with configurability in mind.
+
+
+## Roadmap
+
+- Paste images
+- Message deletion / editing
+- Load >50 latest messages
+- Group Chats
+- Order chats / Unread message alerts
+- User online status
+- Themes
+- Settings
+- Reactions
+
+
+## Authors
+
+- [@ariesninjadev](https://www.github.com/ariesninjadev)
+- Testing Team
+- Graphics Team
+
