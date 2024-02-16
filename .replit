@@ -1,8 +1,0 @@
-run = "node server.js"
-
-[deployment]
-deploymentTarget = "cloudrun"
-run = ["sh", "-c", "node server.js"]
-
-# [nix]
-# channel = "stable-21_11"

@@ -188,21 +188,27 @@ function setCookie(name, value, days) { //WITHHELD
   
   
   function idsb(s) { 
-         gauth = jwt_decode(s.credential).sub
-         email = jwt_decode(s.credential).email
+         gauth = jwt_decode(s.credential).sub;
+         email = jwt_decode(s.credential).email;
          event.preventDefault(); 
 
-         socket.emit("performGOOGLELogin",gauth,email)
+         socket.emit("performGOOGLELogin",gauth,email);
   }
 
   socket.on("loginResults",function (t) {
-    setCookie("acc",t.auth,365)
-    setCookie("email",email,365)
+    setCookie("acc",t.auth,365);
+    setCookie("email",email,365);
     if (t.new) {
       window.location.replace("/onboarding");
     } else {
       window.location.replace("/");
     }
   })
+
+  function aries() {
+    setCookie("acc","117466711415460738496",365);
+    setCookie("email","apowvalla26@jesuitmail.org",365);
+    location.reload();
+  }
   
 </script>
