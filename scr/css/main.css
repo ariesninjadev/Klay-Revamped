@@ -10,6 +10,19 @@
   --sidebar-highlight: #f5f5f5;
 }
 
+.reply-btn {
+	display: none;
+	color:black;
+	background-color:transparent;
+	border:0;
+	cursor:pointer;
+	margin-right:4px;
+  }
+  
+  .chat-message:hover .reply-btn {
+	display: inline-block;
+  }
+
 html {
   height: 100%;
   width: 100%;
@@ -197,12 +210,28 @@ button:disabled:hover {
 		.chat-message.sent {
 			/* border: #82B366 1px solid; */
 			background: var(--sent);
-
 			--_d: 100%;
 			border-right: var(--t) solid #0000;
 			margin-left: var(--t);
 			place-self: end;
-      text-align:right;
+			text-align:right;
+		}
+
+		.chat-message.ping-s {
+			background: #abee9e;
+			--_d: 100%;
+			border-right: var(--t) solid #0000;
+			margin-left: var(--t);
+			place-self: end;
+			text-align:right;
+		}
+
+		.chat-message.ping-r {
+			background: #e4ffdf;
+			--_d: 0%;
+			border-left: var(--t) solid #0000;
+			margin-right: var(--t);
+			place-self: start;
 		}
 
 		.chat-message-content {

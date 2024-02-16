@@ -241,8 +241,8 @@ socket.on('userdata', (resuse) => {
     });
 
     socket.on('getCMName', (name, uid, email) => {
-      var otherNAME = name;
-      var otherEMAIL = email;
+      otherNAME = name;
+      otherEMAIL = email;
       if (name == false) {
         name = "Deleted User"
       }
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var messageTimeCache = []
 
-  function createChatBubble(textraw, wasReceived, timeval, r = false, rc = "", im = false, imc = "") {
+  function createChatBubble(textraw, wasReceived, timeval, msgId=false, ping=false, r = false, rc = "", im = false, imc = "") {
 
     var timexv = new Date(timeval)
 
@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const replyButton = h('button', {
-      'style': 'color:black;background-color:transparent;border:0;cursor:pointer;'
+      'class': 'reply-btn'
     }, '<i class="fa-solid fa-reply"></i>');
     if (rc == "") {
       secT = 'Replying to image'
@@ -541,7 +541,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. Element
         h(
           'div', {
-            'class': 'chat-message p-3 ' + (wasReceived ? 'received' : 'sent')
+            'class': 'chat-message p-3 ' + (ping ? (wasReceived ? 'ping-r' : 'ping-s') : (wasReceived ? 'received' : 'sent')),
+            'msgId': (msgId ? msgId : 0)
           },
           [
             h(
@@ -695,6 +696,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 
+  socket.on('pingVerify', (status,time) => {
+    if (status) {
+      thisMsgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000);
+      alertify.success("User Pinged!")
+      // messages.appendChild(
+      //   createChatBubble('Sent a ping!', false, new Date(), thisMsgId, true)
+      // );
+      socket.emit("chatOutbound", {
+        trs:'Sent a ping!',
+        id:thisMsgId,
+        usert:user.account.id,
+        timev:new Date(),
+        r:false,
+        rc:"",
+        tpan:false,
+        tp_avatar:"",
+        ping:true
+      });
+    } else {
+      alertify.error("You must wait "+time+" seconds before pinging this user again.")
+    }
+});
+
   //document.getElementById("replycontent").addEventListener("click", cancelreply())
 
   const messages = $('#chat-messages-container')[0];
@@ -755,8 +779,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById("chat-input").value == "/ping") {
-      alertify.success("User Pinged!")
-      socket.emit("ping", otherEMAIL, chatId, otherNAME, user.account.username);
+      $('#chat-input')[0].value = '';
+      socket.emit("ping", otherEMAIL, chatId, otherNAME, user.account.username, user.account.id);
       return false
     }
 
@@ -782,28 +806,32 @@ document.addEventListener('DOMContentLoaded', function() {
     tpan = false
     tp_avatar = ""
     usert = user.account.id
+    msgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000);
     socket.emit("chatOutbound", {
       trs,
+      id:msgId,
       usert,
       timev,
       r,
       rc,
       tpan,
-      tp_avatar
+      tp_avatar,
+      ping:false
     })
+
     if (replymode) {
-      messages.appendChild(
-        createChatBubble(input.value, false, timev, true, targetmsg)
-      );
+      // messages.appendChild(
+      //   createChatBubble(input.value, false, timev, msgId, false, true, targetmsg)
+      // );
       replymode = false
       targetmsg = ""
       r = false
       rc = ""
     } else {
 
-      messages.appendChild(
-        createChatBubble(input.value, false, timev)
-      );
+      // messages.appendChild(
+      //   createChatBubble(input.value, false, timev, msgId, false)
+      // );
     }
 
     input.value = '';
@@ -822,9 +850,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   socket.on('chatIncoming', function(msg) {
-    if (msg.user == user.account.username) {
+    if (msg.usert == user.account.id) {
       messages.appendChild(
-        createChatBubble(msg.trs, false, msg.timev, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
+        createChatBubble(msg.trs, false, msg.timev, msg.id, msg.ping, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
       );
     } else {
       if (tactive == true) {
@@ -837,7 +865,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       try {
         messages.appendChild(
-          createChatBubble(msg.trs, true, msg.timev, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
+          createChatBubble(msg.trs, true, msg.timev, msg.id, msg.ping, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
         );
 
         if (userbottom == true) {
@@ -902,7 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (datamm != null) {
       for (const element of datamm) {
         messages.appendChild(
-          createChatBubble(element.content, (element.name != user.account.id), element.time, element.r, element.rc, element.im, element.imc)
+          createChatBubble(element.content, (element.name != user.account.id), element.time, element.id, element.ping, element.r, element.rc, element.im, element.imc)
         );
       }
     }
@@ -971,31 +999,34 @@ document.addEventListener('DOMContentLoaded', function() {
           timev = new Date();
           tpan = true
           usert = user.account.id
+          msgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000)
           socket.emit("chatOutbound", {
             trs,
+            id:msgId,
             usert,
             timev,
             r,
             rc,
             tpan,
-            tp_avatar
+            tp_avatar,
+            ping:false
           })
 
           if (replymode) {
-            document.getElementById("chat-messages-container").appendChild(
-              createChatBubble("", false, timev, true, targetmsg, true, tp_avatar)
-            );
+            // document.getElementById("chat-messages-container").appendChild(
+            //   createChatBubble("", false, timev, msgId, false, true, targetmsg, true, tp_avatar)
+            // );
             replymode = false
             targetmsg = ""
             r = false
             rc = ""
           } else {
-            document.getElementById("chat-messages-container").appendChild(
-              createChatBubble("", false, timev, false, "", true, tp_avatar)
-            );
+            // document.getElementById("chat-messages-container").appendChild(
+            //   createChatBubble("", false, timev, msgId, false, false, "", true, tp_avatar)
+            // );
           }
           if (userbottom == true) {
-            setTimeout(scrollDownChat, 250);
+            setTimeout(scrollDownChat, 500);
           }
 
         }
@@ -1120,3 +1151,13 @@ function deleteChatLocal() {
   alert("reload reason: DELETECHATLOCAL")
   window.location.reload();
 }
+
+const chatInput = document.getElementById('chat-input');
+            
+document.addEventListener('keydown', function(event) {
+    // Check if any key is pressed
+    if (event.key.length === 1) {
+        // Focus on the chat input
+        chatInput.focus();
+    }
+});

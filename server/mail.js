@@ -63,7 +63,7 @@ async function ping(mailTo,id,username,pinger) {
   const randMessage = messageTemplates[Math.floor(Math.random() * messageTemplates.length)];
 
   // Ask for email address
-  const to = "apowvalla26@jesuitmail.org";
+  const to = mailTo;
 
   // Create the email transport
   const transport = nodemailer.createTransport({
@@ -74,8 +74,6 @@ async function ping(mailTo,id,username,pinger) {
     pass: 'dsdd unug hegb lzuv',
   },
 });
-
-  console.log(pinger);
 
   // Send the email
   transport.sendMail({
@@ -186,17 +184,17 @@ async function ping(mailTo,id,username,pinger) {
                          <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 
                            <tr>
-                            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-bottom:10px"><h1 style="Margin:0;line-height:46px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333">${randMessage}</h1></td>
+                            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-bottom:18px"><h1 style="Margin:0;line-height:46px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:38px;font-style:normal;font-weight:bold;color:#333333">${randMessage}</h1></td>
                            </tr>
                            <tr>
                             <td align="center" class="es-m-p0r es-m-p0l" style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:40px;padding-right:40px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Hey ${username}!</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">You’ve received this message because <span style="background-color:#ddd;padding:2px;border-radius:5px;">${pinger}</span> has requested your attention on Klay.</p></td>
                            </tr>
 
                            <tr>
-                            <td align="center" class="es-m-p0r es-m-p0l" style="Margin:0;padding-bottom:5px;padding-top:30px;padding-left:40px;padding-right:40px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Click <a target="_blank" href="https://theklay.replit.app/chat/${id}" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">here</a> to go there!</p></td>
+                            <td align="center" class="es-m-p0r es-m-p0l" style="Margin:0;padding-bottom:5px;padding-top:30px;padding-left:40px;padding-right:40px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Click <a target="_blank" href="https://klay.onrender.com/chat/${id}" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">here</a> to go there!</p></td>
                            </tr>
                            <tr>
-                            <td align="center" class="es-m-p0r es-m-p0l" style="Margin:0;padding-bottom:5px;padding-top:30px;padding-left:40px;padding-right:40px;font-size:11px!important;color:#777;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#999;font-size:11px!important;">(You can disable pings by clicking <a target="_blank" href="https://theklay.replit.app/?ref=unsubscribe_pings" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#7E8AF5;font-size:11px!important;">here</a>)</p></td>
+                            <td align="center" class="es-m-p0r es-m-p0l" style="Margin:0;padding-bottom:5px;padding-top:30px;padding-left:40px;padding-right:40px;font-size:11px!important;color:#777;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#999;font-size:11px!important;">(You can disable pings by clicking <a target="_blank" href="https://klay.onrender.com/?ref=unsubscribe_pings" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#7E8AF5;font-size:11px!important;">here</a>)</p></td>
                            </tr>
                          </table></td>
                        </tr>

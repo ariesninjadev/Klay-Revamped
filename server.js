@@ -2,15 +2,15 @@
 
 Things to do:
 ---------------
+Paste images
+Msg deletion
 Load >50 messages
 Group Chats
 Order chats / Unread
-Re-impliment seen bar
-Re-impliment online status
+Online status
 Themes
 Settings
 Reactions
-:: Emojis
 
 */
 
@@ -71,8 +71,8 @@ app.get('/chat/:chatid', function(req, res) {
 });
 
 
-server.listen(8080);
-console.log("Server Running.")
+server.listen(port);
+console.log("Running on http://0.0.0.0:"+port)
 
 
 var io = require('socket.io')(server);
@@ -84,7 +84,7 @@ io.sockets.on('connection', function(socket) {
     chatId = '1704746674555-427243_1704746610377-238626';
   }
 
-
+// textraw, wasReceived, timeval, msgId=false, ping=false, r = false, rc = "", im = false, imc = ""
 
   /* socket.emit("credentialdata",{"user1":{"name":u1_name,"pwd":u1_pwd,"cookie":u1_cookie},"user2":{"name":u2_name,"pwd":u2_pwd,"cookie":u2_cookie}})*/
 
@@ -95,15 +95,17 @@ io.sockets.on('connection', function(socket) {
   socket.on('chatOutbound', function(msg) {
     dbc.postChat({
         "content": msg.trs,
+        "id": msg.id,
         "name": msg.usert,
         "time": msg.timev,
         "r": msg.r,
         "rc": msg.rc,
         "im": msg.tpan,
-        "imc": msg.tp_avatar
+        "imc": msg.tp_avatar,
+        "ping": msg.ping
       }, chatId)
       .then(result => {
-        socket.to(chatId).emit("chatIncoming", msg);
+        io.to(chatId).emit("chatIncoming", msg);
       });
   })
 
@@ -493,11 +495,23 @@ io.sockets.on('connection', function(socket) {
     });
   });
 
-  socket.on('ping', function(email,id,name,myname) {
-    mail.ping(email,id,name,myname)
+  socket.on('ping', function(email,id,name,myname,myid) {
+
+    dbc.checkPing(id,myid)
       .then(result => {
-        console.log(result);
+        if (!result.status) {
+          socket.emit("pingVerify",false,result.time)
+          return false;
+        } else {
+
+          mail.ping(email,id,name,myname)
+          .then(result => {
+            socket.emit("pingVerify",true,0)
+          });
+
+        }
       });
+
   });
 
 

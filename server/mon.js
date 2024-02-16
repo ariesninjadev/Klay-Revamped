@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 
 mongoose.set('strictQuery', true)
-mongoose.connect(process.env.dburi, { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://ariesninja:attobro08@birdstore.0wcwtae.mongodb.net/aal", { useNewUrlParser: true });
 
 const userSchema = new mongoose.Schema({
   account: {
@@ -48,7 +48,8 @@ const chatSchema = new mongoose.Schema({
   chat: { type: [Object], required: false },
   members: { type: [String], required: false },
   type: { type: String, required: false },
-  name: { type: String, required: false }
+  name: { type: String, required: false },
+  cooldowns: { type: Object, required: false }
 },{ collection: collection_name });
 
 const User = mongoose.model('users', userSchema, 'users');
@@ -90,7 +91,13 @@ async function createDMOnGeneric(n1,n2) {
     chat: [],
     members: [n1,n2],
     type: "d",
-    name: ""
+    name: "",
+    cooldowns: {
+      ping: {
+        [n1]: now,
+        [n2]: now
+      }
+    }
   }
   );
   newchat.save();
@@ -547,7 +554,36 @@ async function SSA(usr) {
   }
 }
 
+const pingCooldown = 5;
+
+async function checkPing(chatId,userId) {
+  try {
+    const chat = await ChatData.findOne({"identifier": chatId});
+    if (!chat) return {status:false,time:-1};
+    const now = new Date();
+    if (chat.cooldowns.ping[userId] < now) {
+      const dTime = new Date(now.getTime() + pingCooldown * 60000);
+      const result = await ChatData.updateOne(
+        { "identifier": chatId },
+        {
+          $set: {
+            [`cooldowns.ping.${userId}`]:dTime
+          },
+        });
+        return {status:true,time:-1};
+    } else {
+      timeDiff = Math.ceil((chat.cooldowns.ping[userId].getTime() - now.getTime())/1000)
+      return {status:false,time:timeDiff};
+    }
+
+
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
 console.log("db active")
 
-module.exports = { postChat, requestChat, clearChat, clearAllChats, registerUser, chkUsername, vid, u2id, chkGoogleAuth, requestUser, idToName, chatCheck, checkExists, pendingSend, frRespYes,frRespNo, chkInFriends, chkInChats, createDMOnGeneric, initChatA, deleteChatObject, removeFriend, shiftStartPointer, onboardUser, SSA, idToNameAndEmail }
+module.exports = { postChat, requestChat, clearChat, clearAllChats, registerUser, chkUsername, vid, u2id, chkGoogleAuth, requestUser, idToName, chatCheck, checkExists, pendingSend, frRespYes,frRespNo, chkInFriends, chkInChats, createDMOnGeneric, initChatA, deleteChatObject, removeFriend, shiftStartPointer, onboardUser, SSA, idToNameAndEmail, checkPing }
 
