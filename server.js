@@ -1,19 +1,3 @@
-/*
-
-Things to do:
----------------
-Paste images
-Msg deletion
-Load >50 messages
-Group Chats
-Order chats / Unread
-Online status
-Themes
-Settings
-Reactions
-
-*/
-
 const express = require('express')
 const app = express()
 const port = 3000
@@ -72,7 +56,7 @@ app.get('/chat/:chatid', function(req, res) {
 
 
 server.listen(port);
-console.log("Running on http://0.0.0.0:"+port)
+console.log("Running on localhost:"+port)
 
 
 var io = require('socket.io')(server);

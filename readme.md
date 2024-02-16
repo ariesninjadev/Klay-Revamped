@@ -10,7 +10,14 @@ Klay is a modern, secure web-chat made for easy communication and distributed wi
 
 ## Roadmap
 
-- Paste images
+- ~~Image uploading~~ **Done**
+- ~~Rate limiting / transfer limits~~ **Done**
+- ~~LMAC Encryption~~ **Done**
+- ~~Google sign in~~ **Done**
+- ~~Add friends~~ **Done**
+- ~~Reply to messages~~ **Done**
+- ~~Ping users~~ **Done**
+- ~~Paste images~~ **Done**
 - Message deletion / editing
 - Load >50 latest messages
 - Group Chats

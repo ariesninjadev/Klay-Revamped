@@ -15,7 +15,7 @@ var etx = new Date();
 timeelem.innerHTML = `<span class="panel-icon iconuni">
               <i class="fa-solid fa-clock"></i>
             </span> ${fTime(etx)} `;
-setInterval(function() {
+setInterval(function () {
   etx = new Date();
   timeelem.innerHTML = `<span class="panel-icon iconuni">
               <i class="fa-solid fa-clock"></i>
@@ -27,15 +27,15 @@ var userbottom = true
 
 var typerscrollenforce = true
 
-window.onblur = function() {
+window.onblur = function () {
   userfocused = true
 };
-window.onfocus = function() {
+window.onfocus = function () {
   userfocused = false
 };
 
 try {
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('div').on('scroll', chk_scroll);
   });
 
@@ -165,11 +165,11 @@ function tosDecline() {
 function off() {
   var vdsi
   for (const chat of resuser.data.chats) {
-      if (chat.id === chatId) {
-          vdsi = chat.viewdata.startIndex;
-      }
+    if (chat.id === chatId) {
+      vdsi = chat.viewdata.startIndex;
+    }
   }
-  socket.emit("login",vdsi);
+  socket.emit("login", vdsi);
   var link = document.createElement('link');
   link.rel = 'stylesheet';
   link.type = 'text/css';
@@ -202,7 +202,7 @@ socket.on('verifyIdResult', (resuser) => {
     eraseCookie("acc")
     window.location.href = "/login";
   } else if (resuser.account.username == "@UNSET") {
-      window.location.href = "/onboarding";
+    window.location.href = "/onboarding";
   } else {
     user = resuser
     socket.emit('homelogin', user.account.gsub); // include isp framing -- buffer tick space
@@ -301,11 +301,11 @@ socket.on('userdata', (resuse) => {
   }
 });
 
-(function() {
-  $('.inputboxjs2').on('keyup change', function() {
+(function () {
+  $('.inputboxjs2').on('keyup change', function () {
     var empty = false;
 
-    $('.inputboxjs2').each(function() {
+    $('.inputboxjs2').each(function () {
       if ($(this).val().length <= 2) {
         empty = true;
       }
@@ -350,7 +350,7 @@ socket.on('userdata', (resuse) => {
   });*/
 
 
-socket.on("userToIdResult", function(exid) {
+socket.on("userToIdResult", function (exid) {
   if (resuser.data.chats.some(e => e.members.includes(exid))) {
     alertify.error("You already have a chat with this user!")
     return false
@@ -359,7 +359,7 @@ socket.on("userToIdResult", function(exid) {
   if (exid == resuser.account.id) {
     alertify.error("What the hell, thats you.")
   } else {
-    if (!exid) {} else {
+    if (!exid) { } else {
       socket.emit("checkAndSendC", exid, resuser.account.id)
     }
   }
@@ -423,13 +423,13 @@ function hidePopup() {
 }
 
 function triggercmd(cmd) {
-  document.getElementById("chat-input").value = "/"+cmd;
+  document.getElementById("chat-input").value = "/" + cmd;
 }
 
 
 document.getElementById("chat-input").addEventListener("input", (event) => changecheck());
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const $ = (selector) => Array.from(document.querySelectorAll(selector));
 
   function h(tagName, attributes, children) {
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var messageTimeCache = []
 
-  function createChatBubble(textraw, wasReceived, timeval, msgId=false, ping=false, r = false, rc = "", im = false, imc = "") {
+  function createChatBubble(textraw, wasReceived, timeval, msgId = false, ping = false, r = false, rc = "", im = false, imc = "") {
 
     var timexv = new Date(timeval)
 
@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
       messageTimeCache.push(messageDay);
     }
 
-    var text = textraw.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function() {
+    var text = textraw.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
       return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
     });
 
@@ -528,64 +528,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     var wrapper = h(
       'div', {
-        'class': 'chat-message-wrapper'
-      },
+      'class': 'chat-message-wrapper'
+    },
       [
         // 1. Element
         wasReceived ?
-        null :
-        h('div', {
-          'class': 'chat-message-push'
-        }),
+          null :
+          h('div', {
+            'class': 'chat-message-push'
+          }),
 
         // 2. Element
         h(
           'div', {
-            'class': 'chat-message p-3 ' + (ping ? (wasReceived ? 'ping-r' : 'ping-s') : (wasReceived ? 'received' : 'sent')),
-            'msgId': (msgId ? msgId : 0)
-          },
+          'class': 'chat-message p-3 ' + (ping ? (wasReceived ? 'ping-r' : 'ping-s') : (wasReceived ? 'received' : 'sent')),
+          'msgId': (msgId ? msgId : 0)
+        },
           [
             h(
               'div', {
-                'class': 'has-text-right is-size-7'
-              },
+              'class': 'has-text-right is-size-7'
+            },
               [
                 replyButton,
                 h('time', {}, "   " + timet + " ")
               ]
             ),
             r ?
-            h('div', {
-              'class': 'chat-message-content',
-              'style': 'font-size:0.7em;color:#444444;font-style:italic;'
-            }, secT) :
-            null,
+              h('div', {
+                'class': 'chat-message-content',
+                'style': 'font-size:0.7em;color:#444444;font-style:italic;'
+              }, secT) :
+              null,
 
             h(
               'div', {
-                'class': 'chat-message-content'
-              },
+              'class': 'chat-message-content'
+            },
               im ?
-              h('img', {
-                'src': imc,
-                'alt': 'User Photo',
-                'width': '500',
-                'style': 'margin-top:5px;'
-              }, "") :
-              text
+                h('img', {
+                  'src': imc,
+                  'alt': 'User Photo',
+                  'width': '500',
+                  'style': 'margin-top:5px;'
+                }, "") :
+                text
             )
           ]
         )
       ]
     );
 
-    replyButton.addEventListener('click', function() {
+    replyButton.addEventListener('click', function () {
       document.getElementById("chat-input").focus();
       var vstxx = wrapper.textContent.split(" "); //NOTE: THIS IS NOT A SPACE. IT IS A HAIRSPACE.
       var contxx = vstxx[vstxx.length - 1]
       targetmsg = contxx
       document.getElementById("replycontent").innerHTML = '<button id="crp" style="cursor:pointer;margin-right:10px;background:none;border:0;"><i class="fa-solid fa-xmark"></i></button>Replying to: ' + contxx
-      document.getElementById("crp").addEventListener('click', function() {
+      document.getElementById("crp").addEventListener('click', function () {
         cancelreply();
       });
       replymode = true
@@ -599,29 +599,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const wrapper = h(
       'div', {
-        'class': 'chat-message-wrapper',
-        'id': 'typingindicatorp'
-      },
+      'class': 'chat-message-wrapper',
+      'id': 'typingindicatorp'
+    },
       [
 
         // 2. Element
         h(
           'div', {
-            'class': 'chat-message p-3 received'
-          },
+          'class': 'chat-message p-3 received'
+        },
           [
             h(
               'div', {
-                'class': 'has-text-right',
-                'style': 'font-size:.7rem!important'
-              },
+              'class': 'has-text-right',
+              'style': 'font-size:.7rem!important'
+            },
               " " //  HAIRSPACE
             ),
             h(
               'div', {
-                'class': 'chat-message-content',
-                'style': 'width:20px;margin:0 auto;'
-              },
+              'class': 'chat-message-content',
+              'style': 'width:20px;margin:0 auto;'
+            },
               '<div class="ticontainer"><div style="align-items:start!important" class="tiblock"><div class="tidot"></div><div class="tidot"></div><div class="tidot"></div></div></div>'
             )
           ]
@@ -686,38 +686,38 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   socket.on('checkExistsC', (resolve, amble) => {
-      if (resolve) {
-          alertify.success("Chat created!")
-          setTimeout(function() {
-           window.location.href = "/chat/"+amble
-        }, 1500);
-      } else {
-          alertify.error(amble)
-      }
+    if (resolve) {
+      alertify.success("Chat created!")
+      setTimeout(function () {
+        window.location.href = "/chat/" + amble
+      }, 1500);
+    } else {
+      alertify.error(amble)
+    }
   });
 
-  socket.on('pingVerify', (status,time) => {
+  socket.on('pingVerify', (status, time) => {
     if (status) {
       thisMsgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000);
       alertify.success("User Pinged!")
-      // messages.appendChild(
-      //   createChatBubble('Sent a ping!', false, new Date(), thisMsgId, true)
-      // );
+      messages.appendChild(
+        createChatBubble('Sent a ping!', false, new Date(), thisMsgId, true)
+      );
       socket.emit("chatOutbound", {
-        trs:'Sent a ping!',
-        id:thisMsgId,
-        usert:user.account.id,
-        timev:new Date(),
-        r:false,
-        rc:"",
-        tpan:false,
-        tp_avatar:"",
-        ping:true
+        trs: 'Sent a ping!',
+        id: thisMsgId,
+        usert: user.account.id,
+        timev: new Date(),
+        r: false,
+        rc: "",
+        tpan: false,
+        tp_avatar: "",
+        ping: true
       });
     } else {
-      alertify.error("You must wait "+time+" seconds before pinging this user again.")
+      alertify.error("You must wait " + time + " seconds before pinging this user again.")
     }
-});
+  });
 
   //document.getElementById("replycontent").addEventListener("click", cancelreply())
 
@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const MESSAGE_LIMIT = 10;
   const TIME_LIMIT_SECONDS = 10;
 
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', function (event) {
 
     event.stopPropagation();
     event.preventDefault();
@@ -740,32 +740,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (typeof Storage !== 'undefined') {
-        // Get the current timestamp
-        const currentTime = Math.floor(Date.now() / 1000);
+      // Get the current timestamp
+      const currentTime = Math.floor(Date.now() / 1000);
 
-        // Retrieve message count and timestamp from localStorage
-        let messageCount = parseInt(localStorage.getItem('messageCount')) || 0;
-        let lastMessageTime = parseInt(localStorage.getItem('lastMessageTime')) || 0;
+      // Retrieve message count and timestamp from localStorage
+      let messageCount = parseInt(localStorage.getItem('messageCount')) || 0;
+      let lastMessageTime = parseInt(localStorage.getItem('lastMessageTime')) || 0;
 
-        // Check if the time limit has passed since the last message
-        if (currentTime - lastMessageTime < TIME_LIMIT_SECONDS) {
-            // Check if the message limit has been exceeded
-            if (messageCount >= MESSAGE_LIMIT) {
-                alertify.error("Woah, slow down!");
-                return false;
-            }
-        } else {
-            // Reset the message count if the time limit has passed
-            messageCount = 0;
+      // Check if the time limit has passed since the last message
+      if (currentTime - lastMessageTime < TIME_LIMIT_SECONDS) {
+        // Check if the message limit has been exceeded
+        if (messageCount >= MESSAGE_LIMIT) {
+          alertify.error("Woah, slow down!");
+          return false;
         }
+      } else {
+        // Reset the message count if the time limit has passed
+        messageCount = 0;
+      }
 
-        // Increment the message count and update the timestamp
-        messageCount++;
-        localStorage.setItem('messageCount', messageCount);
-        localStorage.setItem('lastMessageTime', currentTime);
+      // Increment the message count and update the timestamp
+      messageCount++;
+      localStorage.setItem('messageCount', messageCount);
+      localStorage.setItem('lastMessageTime', currentTime);
     }
 
-    
+
     if (document.getElementById("chat-input").value.length > 1000) {
       alertify.error("Messages must contain fewer than 1000 letters!")
       return false;
@@ -809,29 +809,29 @@ document.addEventListener('DOMContentLoaded', function() {
     msgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000);
     socket.emit("chatOutbound", {
       trs,
-      id:msgId,
+      id: msgId,
       usert,
       timev,
       r,
       rc,
       tpan,
       tp_avatar,
-      ping:false
+      ping: false
     })
 
     if (replymode) {
-      // messages.appendChild(
-      //   createChatBubble(input.value, false, timev, msgId, false, true, targetmsg)
-      // );
+      messages.appendChild(
+        createChatBubble(input.value, false, timev, msgId, false, true, targetmsg)
+      );
       replymode = false
       targetmsg = ""
       r = false
       rc = ""
     } else {
 
-      // messages.appendChild(
-      //   createChatBubble(input.value, false, timev, msgId, false)
-      // );
+      messages.appendChild(
+        createChatBubble(input.value, false, timev, msgId, false)
+      );
     }
 
     input.value = '';
@@ -849,11 +849,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-  socket.on('chatIncoming', function(msg) {
+  socket.on('chatIncoming', function (msg) {
     if (msg.usert == user.account.id) {
-      messages.appendChild(
-        createChatBubble(msg.trs, false, msg.timev, msg.id, msg.ping, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
-      );
+      // messages.appendChild(
+      //   createChatBubble(msg.trs, false, msg.timev, msg.id, msg.ping, msg.r, msg.rc, msg.tpan, msg.tp_avatar)
+      // );
     } else {
       if (tactive == true) {
         clearTimeout(typingTimeout);
@@ -914,19 +914,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 */
-  socket.on('forceclose', function() {
+  socket.on('forceclose', function () {
     alert("reload reason: FORCECLOSE")
     location.reload();
   });
 
-  socket.on('forceclosetargeted', function(t) {
+  socket.on('forceclosetargeted', function (t) {
     if (t == chatId) {
       alert("reload reason: FORCECLOSETARGETED")
       location.reload();
     }
   });
 
-  socket.on('chatData', function(datamm, myaccount) {
+  socket.on('chatData', function (datamm, myaccount) {
     if (datamm != null) {
       for (const element of datamm) {
         messages.appendChild(
@@ -938,7 +938,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   });
 
-  document.getElementById('form-wrap').onkeydown = function(e) {
+  document.getElementById('form-wrap').onkeydown = function (e) {
     if (e.keyCode == 13) {
       document.getElementById("form-wrap").requestSubmit();
       event.stopPropagation();
@@ -1002,28 +1002,28 @@ document.addEventListener('DOMContentLoaded', function() {
           msgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000)
           socket.emit("chatOutbound", {
             trs,
-            id:msgId,
+            id: msgId,
             usert,
             timev,
             r,
             rc,
             tpan,
             tp_avatar,
-            ping:false
+            ping: false
           })
 
           if (replymode) {
-            // document.getElementById("chat-messages-container").appendChild(
-            //   createChatBubble("", false, timev, msgId, false, true, targetmsg, true, tp_avatar)
-            // );
+            document.getElementById("chat-messages-container").appendChild(
+              createChatBubble("", false, timev, msgId, false, true, targetmsg, true, tp_avatar)
+            );
             replymode = false
             targetmsg = ""
             r = false
             rc = ""
           } else {
-            // document.getElementById("chat-messages-container").appendChild(
-            //   createChatBubble("", false, timev, msgId, false, false, "", true, tp_avatar)
-            // );
+            document.getElementById("chat-messages-container").appendChild(
+              createChatBubble("", false, timev, msgId, false, false, "", true, tp_avatar)
+            );
           }
           if (userbottom == true) {
             setTimeout(scrollDownChat, 500);
@@ -1039,13 +1039,113 @@ document.addEventListener('DOMContentLoaded', function() {
     fileInput.click();
   });
 
+
+
+
+  document.body.addEventListener('paste', (event) => {
+    const activeElement = document.activeElement;
+  
+    // Check if the active element is a text input or textarea
+    if (activeElement.tagName === 'INPUT' && activeElement.type === 'text' || 
+        activeElement.tagName === 'TEXTAREA') {
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      for (const item of items) {
+        if (item.kind === 'file' && item.type.includes('image')) {
+          const file = item.getAsFile();
+          if (confirm("Are you sure you want to paste an image?")) {
+              handleImageFile(file);
+          }
+          event.preventDefault(); // Prevent the default paste behavior
+        }
+      }
+    }
+  });
+  
+  // Function to handle image file processing
+  const handleImageFile = (file) => {
+    const reader = new FileReader(); // Create a new FileReader
+    reader.onload = (e) => {
+      const fileData = e.target.result; // Get the file data
+      const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        // create a new Image object and set its src to the data URL
+        const img = new Image();
+        img.src = fileData;
+        // when the image is loaded, resize it with the specified quality
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var data = imgData.data;
+          for (var i = 0; i < data.length; i += 4) {
+            if (data[i + 3] < 255) {
+              data[i] = 255;
+              data[i + 1] = 255;
+              data[i + 2] = 255;
+              data[i + 3] = 255;
+            }
+          }
+          ctx.putImageData(imgData, 0, 0);
+          // create a new data URL with the reduced quality
+          const dataURL = canvas.toDataURL('image/jpeg', 0.2);
+          tp_avatar = dataURL
+
+          document.getElementById("replycontent").innerText = ""
+          document.getElementById("subm").disabled = true;
+          r = replymode
+          rc = targetmsg
+          trs = ""
+          timev = new Date();
+          tpan = true
+          usert = user.account.id
+          msgId = Date.now().toString() + Math.floor(100000 + Math.random() * 900000)
+          socket.emit("chatOutbound", {
+            trs,
+            id: msgId,
+            usert,
+            timev,
+            r,
+            rc,
+            tpan,
+            tp_avatar,
+            ping: false
+          })
+
+          if (replymode) {
+            document.getElementById("chat-messages-container").appendChild(
+              createChatBubble("", false, timev, msgId, false, true, targetmsg, true, tp_avatar)
+            );
+            replymode = false
+            targetmsg = ""
+            r = false
+            rc = ""
+          } else {
+            document.getElementById("chat-messages-container").appendChild(
+              createChatBubble("", false, timev, msgId, false, false, "", true, tp_avatar)
+            );
+          }
+          if (userbottom == true) {
+            setTimeout(scrollDownChat, 500);
+          }
+
+        }
+    };
+    // Read the file contents
+    reader.readAsDataURL(file);
+  };
+  
+
+
+
+
   var pingres = 0
   var tactive = false
   var tactivelocal = false
 
   let typingTimeout;
 
-  socket.on('typingPingBC', function(obuser) {
+  socket.on('typingPingBC', function (obuser) {
     if (user !== obuser) {
       //setTimeout(scrollDownChat, 250);
       if (!tactivelocal) {
@@ -1066,10 +1166,10 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(typingTimeout);
         try {
           clearTimeout(typingTimeoutI);
-        } catch (e) {}
-        typingTimeout = setTimeout(function() {
+        } catch (e) { }
+        typingTimeout = setTimeout(function () {
           tactivelocal = false;
-          typingTimeoutI = setTimeout(function() {
+          typingTimeoutI = setTimeout(function () {
             tactive = false;
             document.getElementById("typingindicatorp").remove()
           }, 2000);
@@ -1129,7 +1229,7 @@ document.addEventListener('DOMContentLoaded', function() {
       /* change the users status to active */
     } else {
       pageStatus = false;
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         if (pageStatus == false) {
           alert(i + ' Page is inactive'); /* change the users status to inactive */
         }
@@ -1142,22 +1242,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function deleteChatAdmin() {
-  socket.emit("deleteChatObject",chatId,resuser.account.metadata.admin);
+  socket.emit("deleteChatObject", chatId, resuser.account.metadata.admin);
   window.location.href = "/home";
 }
 
 function deleteChatLocal() {
-  socket.emit("shiftStartPointer",chatId,resuser.account.id,document.querySelectorAll('.chat-message-wrapper').length);
+  socket.emit("shiftStartPointer", chatId, resuser.account.id, document.querySelectorAll('.chat-message-wrapper').length);
   alert("reload reason: DELETECHATLOCAL")
   window.location.reload();
 }
 
 const chatInput = document.getElementById('chat-input');
-            
-document.addEventListener('keydown', function(event) {
-    // Check if any key is pressed
-    if (event.key.length === 1) {
-        // Focus on the chat input
-        chatInput.focus();
-    }
+
+document.addEventListener('keydown', function (event) {
+  // Check if any key is pressed
+  if (event.key.length === 1) {
+    // Focus on the chat input
+    chatInput.focus();
+  }
 });

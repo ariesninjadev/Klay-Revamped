@@ -4,7 +4,8 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
 	"features": {
-	  "ghcr.io/devcontainers-contrib/features/jshint:2": {}
+	"ghcr.io/devcontainers-contrib/features/jshint:2": {},
+	"ghcr.io/devcontainers-contrib/features/mongosh-homebrew:1": {}
 	},
   
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -19,8 +20,11 @@
 	  "vscode": {
 		// Add the IDs of extensions you want installed when the container is created.
 		"extensions": [
-			"streetsidesoftware.code-spell-checker",
-			"jkearins.action-buttons-ext"
+			"dbaeumer.vscode-eslint",
+			"jkearins.action-buttons-ext",
+			"christian-kohler.path-intellisense",
+			"GitHub.copilot",
+			"GitHub.copilot-chat"
 		]
 	  }
 	}
