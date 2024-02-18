@@ -1,162 +1,168 @@
 <title>Klay - Setup</title>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
 <!-- JavaScript -->
 <script src="/alertify/jquery.min.js"></script>
 <script src="/alertify/foundation.min.js"></script>
 <script src="/alertify/notification.js"></script>
-<link rel="stylesheet" href="/alertify/notifstyle.css"/>
+<link rel="stylesheet" href="/alertify/notifstyle.css" />
 <style>
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans Condensed';
-  font-style: normal;
-  font-weight: 300;
-  src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDuXMQg.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans Condensed';
-  font-style: normal;
-  font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff0GmDuXMQg.ttf) format('truetype');
-}
-* {
-  box-sizing: border-box;
-}
-body {
-  font-family: 'open sans', helvetica, arial, sans;
-  background: url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.log-form {
-  width: 40%;
-  min-width: 320px;
-  max-width: 475px;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-}
-@media (max-width: 40em) {
-  .log-form {
-    width: 95%;
-    position: relative;
-    margin: 2.5% auto 0 auto;
-    left: 0%;
-    -webkit-transform: translate(0%, 0%);
-    -moz-transform: translate(0%, 0%);
-    -o-transform: translate(0%, 0%);
-    -ms-transform: translate(0%, 0%);
-    transform: translate(0%, 0%);
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 300;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVc.ttf)
+      format("truetype");
   }
-}
-.log-form form {
-  display: block;
-  width: 100%;
-  padding: 2em;
-}
-.log-form h2 {
-  color: #ffffff;
-  font-family: 'open sans condensed';
-  font-size: 1.35em;
-  display: block;
-  background: #2a2a2a;
-  width: 100%;
-  text-transform: uppercase;
-  padding: 0.75em 1em 0.75em 1.5em;
-  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
-  border: 1px solid #1d1d1d;
-  margin: 0;
-  font-weight: 200;
-}
-.log-form input {
-  font-size: 1.2em;
-  display: block;
-  margin: auto auto;
-  width: 100%;
-  margin-bottom: 1em;
-  border: none;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 0.25em;
-  color: #757575;
-}
-.log-form input:focus {
-  outline: none;
-}
-.log-form .btn {
-  display: inline-block;
-  background: #f05bed;
-  border: 0px solid #1ba0a9;
-  padding: 0.5em 2em;
-  color: white;
-  margin-right: 0.5em;
-  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
-}
-.log-form .btn:hover {
-  background: #ed95ec;
-}
-.log-form .btn:active {
-  background: #eb1ce7;
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
-}
-.log-form .btn:focus {
-  outline: none;
-}
-.log-form .forgot {
-  color: #f05bed;
-  line-height: 0.5em;
-  position: relative;
-  top: 2.5em;
-  text-decoration: none;
-  font-size: 0.75em;
-  margin: 0;
-  padding: 0;
-  float: right;
-}
-.log-form .forgot:hover {
-  color: #f05bed;
-}
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVc.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans Condensed";
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDuXMQg.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans Condensed";
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff0GmDuXMQg.ttf)
+      format("truetype");
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "open sans", helvetica, arial, sans;
+    background: url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg)
+      no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .log-form {
+    width: 40%;
+    min-width: 320px;
+    max-width: 475px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 40em) {
+    .log-form {
+      width: 95%;
+      position: relative;
+      margin: 2.5% auto 0 auto;
+      left: 0%;
+      -webkit-transform: translate(0%, 0%);
+      -moz-transform: translate(0%, 0%);
+      -o-transform: translate(0%, 0%);
+      -ms-transform: translate(0%, 0%);
+      transform: translate(0%, 0%);
+    }
+  }
+  .log-form form {
+    display: block;
+    width: 100%;
+    padding: 2em;
+  }
+  .log-form h2 {
+    color: #ffffff;
+    font-family: "open sans condensed";
+    font-size: 1.35em;
+    display: block;
+    background: #2a2a2a;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 0.75em 1em 0.75em 1.5em;
+    box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid #1d1d1d;
+    margin: 0;
+    font-weight: 200;
+  }
+  .log-form input {
+    font-size: 1.2em;
+    display: block;
+    margin: auto auto;
+    width: 100%;
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 0.25em;
+    color: #757575;
+  }
+  .log-form input:focus {
+    outline: none;
+  }
+  .log-form .btn {
+    display: inline-block;
+    background: #f05bed;
+    border: 0px solid #1ba0a9;
+    padding: 0.5em 2em;
+    color: white;
+    margin-right: 0.5em;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .log-form .btn:hover {
+    background: #ed95ec;
+  }
+  .log-form .btn:active {
+    background: #eb1ce7;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  .log-form .btn:focus {
+    outline: none;
+  }
+  .log-form .forgot {
+    color: #f05bed;
+    line-height: 0.5em;
+    position: relative;
+    top: 2.5em;
+    text-decoration: none;
+    font-size: 0.75em;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+  .log-form .forgot:hover {
+    color: #f05bed;
+  }
 
   .btn {
     border-radius: 5px;
-    width:100%;
+    width: 100%;
     margin: 10px auto -10px auto;
     padding: 10px 5px;
   }
 
-  #getstarted:disabled, #checkusr:disabled {
-background-color: #999;
+  #getstarted:disabled,
+  #checkusr:disabled {
+    background-color: #999;
   }
-
 
   .error-message {
     color: red;
@@ -166,162 +172,171 @@ background-color: #999;
 <div class="log-form">
   <h2>Let's get you setup!</h2>
   <form id="lform" onsubmit="event.preventDefault(); idsb();">
-   <!-- <p style="color:red;font-size:0.5em;">Currently disabled for fixes</p>-->
+    <!-- <p style="color:red;font-size:0.5em;">Currently disabled for fixes</p>-->
     <p>Email:</p>
-    <input disabled type="text" title="Email" id="ident" style="color:#aaa!important;background-color:#ffffff;" required />
+    <input
+      disabled
+      type="text"
+      title="Email"
+      id="ident"
+      style="color: #aaa !important; background-color: #ffffff"
+      required
+    />
     <p>Enter a Username:</p>
     <span>
-      <input maxlength="16" style="display:inline-block;width:60%;margin-right:6%;" type="text" title="Username" id="key" required/>
-      <button disabled style="display:inline-block;width:30%;" onclick="event.preventDefault();chkav();" class="btn" id="checkusr">Check Availability</button>
+      <input
+        maxlength="16"
+        style="display: inline-block; width: 60%; margin-right: 6%"
+        type="text"
+        title="Username"
+        id="key"
+        required
+      />
+      <button
+        disabled
+        style="display: inline-block; width: 30%"
+        onclick="event.preventDefault();chkav();"
+        class="btn"
+        id="checkusr"
+      >
+        Check Availability
+      </button>
     </span>
     <p class="error-message" id="error-message"></p>
-    <button disabled type="submit" class="btn" id="getstarted">Get Started</button>
+    <button disabled type="submit" class="btn" id="getstarted">
+      Get Started
+    </button>
   </form>
 </div>
 <script src="socket.io.min.js"></script>
 <script>
-var socket = io();
+  var socket = io();
 
-  
-function setCookie(name, value, days) { //WITHHELD
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
+  function setCookie(name, value, days) {
+    //WITHHELD
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
   }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-  function getCookie(name) { //WITHHELD
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  function getCookie(name) {
+    //WITHHELD
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
   }
-  return null;
-}
 
-  socket.emit("obtainSSA",getCookie("acc"));
+  socket.emit("obtainSSA", getCookie("acc"));
 
-  socket.on("SSA",function (resp) {
+  socket.on("SSA", function (resp) {
     if (resp.status == "denied") {
       location.href = "/home";
     }
   });
 
-
   document.getElementById("ident").value = getCookie("email");
 
-
-var d;
-var n;
-var p;
-var p2;
+  var d;
+  var n;
+  var p;
+  var p2;
 
   /*socket.on("credentialdata",function (ud) {
     d = ud
   }) ;*/
 
-
-
   function onlyLetters(str) {
-  return str.match("^[A-Za-z0-9_]+$");
-}
-
-
-  
-    
-  function idsb() {
-    s = document.getElementById("key").value.trim(); 
-    
-    event.preventDefault(); 
-
-    if (! onlyLetters(s)) {
-      alertify.error("Username can only contain A-Z, a-z, 0-9, and _");
-      return false
-    }
-
-    if ((s.length >= 3) && (s.length <= 16)) {} else {
-      alertify.error("Username must be between 3 and 16 characters.");
-      return false
-    }
-    
-      socket.emit("onboardUser",getCookie("acc"),s)
-    
+    return str.match("^[A-Za-z0-9_]+$");
   }
 
-  socket.on("onboardUserResponse", function(x) {
+  function idsb() {
+    s = document.getElementById("key").value.trim();
+
+    event.preventDefault();
+
+    if (!onlyLetters(s)) {
+      alertify.error("Username can only contain A-Z, a-z, 0-9, and _");
+      return false;
+    }
+
+    if (s.length >= 3 && s.length <= 16) {
+    } else {
+      alertify.error("Username must be between 3 and 16 characters.");
+      return false;
+    }
+
+    socket.emit("onboardUser", getCookie("acc"), s);
+  }
+
+  socket.on("onboardUserResponse", function (x) {
     if (x) {
       location.href = "/home";
     } else {
-      alertify.error("There was an error.")
-    }
-  })
-
-
-
-  function chkav() {
-    username = document.getElementById("key").value.trim(); 
-    event.preventDefault(); 
-
-    if (! onlyLetters(username)) {
-      alertify.error("Username can only contain A-Z, a-z, 0-9, and _");
-      return false
-    }
-
-    if ((username.length >= 3) && (username.length <= 16)) {} else {
-      alertify.error("Username must be between 3 and 16 characters.");
-      return false
-    }
-
-      socket.emit("submitUser",username)
-
-  }
-  
-
-
-  socket.on("userRes",function (ud) {
-    if (ud==0) {
-      alertify.error('This username is taken.');
-      document.getElementById('getstarted').disabled = true;
-    } else {
-      alertify.success('This username is available!');
-      document.getElementById('getstarted').disabled = false;
+      alertify.error("There was an error.");
     }
   });
 
+  function chkav() {
+    username = document.getElementById("key").value.trim();
+    event.preventDefault();
 
+    if (!onlyLetters(username)) {
+      alertify.error("Username can only contain A-Z, a-z, 0-9, and _");
+      return false;
+    }
 
+    if (username.length >= 3 && username.length <= 16) {
+    } else {
+      alertify.error("Username must be between 3 and 16 characters.");
+      return false;
+    }
 
-// auto
+    socket.emit("submitUser", username);
+  }
 
+  socket.on("userRes", function (ud) {
+    if (ud == 0) {
+      alertify.error("This username is taken.");
+      document.getElementById("getstarted").disabled = true;
+    } else {
+      alertify.success("This username is available!");
+      document.getElementById("getstarted").disabled = false;
+    }
+  });
+
+  // auto
 
   //socket.emit("fetchOnboarding",getCookie("acc"))
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const keyInput = document.getElementById("key");
+    const submitButton = document.getElementById("checkusr");
+    const errorMessage = document.getElementById("error-message");
 
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const keyInput = document.getElementById('key');
-    const submitButton = document.getElementById('checkusr');
-    const errorMessage = document.getElementById('error-message');
-
-    keyInput.addEventListener('input', function () {
+    keyInput.addEventListener("input", function () {
       const key = keyInput.value.trim();
-      document.getElementById('getstarted').disabled = true;
+      document.getElementById("getstarted").disabled = true;
 
       if (/^[a-zA-Z0-9_]{3,16}$/.test(key)) {
-          submitButton.disabled = false;
-          errorMessage.textContent = '';
+        submitButton.disabled = false;
+        errorMessage.textContent = "";
       } else if (key.length < 3 || key.length > 16) {
-          submitButton.disabled = true;
-          errorMessage.textContent = 'Username must be between 3 and 16 characters.';
+        submitButton.disabled = true;
+        errorMessage.textContent =
+          "Username must be between 3 and 16 characters.";
       } else {
-          submitButton.disabled = true;
-          errorMessage.textContent = 'Username can only contain letters, numbers, and underscores.';
+        submitButton.disabled = true;
+        errorMessage.textContent =
+          "Username can only contain letters, numbers, and underscores.";
       }
     });
   });
-  
 </script>

@@ -1,60 +1,67 @@
+const collection_name = "gen";
 
-const collection_name = "gen"
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Connect to remote MongoDB database
 
+mongoose.set("strictQuery", true);
+mongoose.connect(
+  "mongodb+srv://ariesninja:attobro08@birdstore.0wcwtae.mongodb.net/aal",
+  { useNewUrlParser: true }
+);
 
-mongoose.set('strictQuery', true)
-mongoose.connect("mongodb+srv://ariesninja:attobro08@birdstore.0wcwtae.mongodb.net/aal", { useNewUrlParser: true });
-
-const userSchema = new mongoose.Schema({
-  account: {
-    gsub: { type: String, required: true },
-    email: { type: String, required: true },
-    username: { type: String, required: true },
-    id: { type: String, required: true },
-    creation: { type: Date, required: false },
-    status: { type: Number, required: false },
-    metadata: { type: {Object}, required: false }
-  },
-  data: {
-    chats: {
-      type: [Object],
-      required: false
-    },   
-    friends: {
-      type: [Object],
-      required: false
-    },   
-    blocked: {
-      type: [Object],
-      required: false
+const userSchema = new mongoose.Schema(
+  {
+    account: {
+      gsub: { type: String, required: true },
+      email: { type: String, required: true },
+      username: { type: String, required: true },
+      id: { type: String, required: true },
+      creation: { type: Date, required: false },
+      status: { type: Number, required: false },
+      metadata: { type: { Object }, required: false },
     },
-    pending: {
+    data: {
+      chats: {
+        type: [Object],
+        required: false,
+      },
+      friends: {
+        type: [Object],
+        required: false,
+      },
+      blocked: {
+        type: [Object],
+        required: false,
+      },
+      pending: {
+        type: [Object],
+        required: false,
+      },
+    },
+    settings: {
       type: [Object],
-      required: false
-    }
+      required: false,
+    },
   },
-  settings: {
-    type: [Object],
-    required: false
-  }
-},{ collection: 'users' });
+  { collection: "users" }
+);
 
-const chatSchema = new mongoose.Schema({
-  identifier: { type: String, required: false },
-  chat: { type: [Object], required: false },
-  members: { type: [String], required: false },
-  type: { type: String, required: false },
-  name: { type: String, required: false },
-  cooldowns: { type: Object, required: false }
-},{ collection: collection_name });
+const chatSchema = new mongoose.Schema(
+  {
+    identifier: { type: String, required: false },
+    chat: { type: [Object], required: false },
+    members: { type: [String], required: false },
+    type: { type: String, required: false },
+    name: { type: String, required: false },
+    cooldowns: { type: Object, required: false },
+  },
+  { collection: collection_name }
+);
 
-const User = mongoose.model('users', userSchema, 'users');
+const User = mongoose.model("users", userSchema, "users");
 
-const ChatData = mongoose.model('gen', chatSchema);
+const ChatData = mongoose.model("gen", chatSchema);
 
 function registerUser(gauth, idI, email) {
   const now = new Date();
@@ -68,55 +75,52 @@ function registerUser(gauth, idI, email) {
       status: 1,
       metadata: {
         bandata: {
-          bantext: ""
-        }
-      }
+          bantext: "",
+        },
+      },
     },
     data: {
       chats: [],
       friends: [],
       blocked: [],
-      pending: []
+      pending: [],
     },
-    settings: []
+    settings: [],
   });
   newuser.save();
 }
 
-async function createDMOnGeneric(n1,n2) {
+async function createDMOnGeneric(n1, n2) {
   const now = new Date();
-  const newchat = new ChatData(
-    {
-    identifier: n1+"_"+n2,
+  const newchat = new ChatData({
+    identifier: n1 + "_" + n2,
     chat: [],
-    members: [n1,n2],
+    members: [n1, n2],
     type: "d",
     name: "",
     cooldowns: {
       ping: {
         [n1]: now,
-        [n2]: now
-      }
-    }
-  }
-  );
+        [n2]: now,
+      },
+    },
+  });
   newchat.save();
-  return n1+"_"+n2
+  return n1 + "_" + n2;
 }
 
-
-async function postChat(content,coll) {
+async function postChat(content, coll) {
   try {
     const result = await ChatData.updateOne(
-      { "identifier": coll },
+      { identifier: coll },
       {
         $push: {
-          "chat": content
+          chat: content,
         },
-      });
+      }
+    );
 
-    return (result);
-
+    return result;
   } catch (err) {
     console.error(err);
     return false;
@@ -125,28 +129,29 @@ async function postChat(content,coll) {
 
 async function deleteChatObject(target) {
   try {
-    var ids = target.split('_');
-    const adxs = await ChatData.deleteOne({ "identifier": target });
+    var ids = target.split("_");
+    const adxs = await ChatData.deleteOne({ identifier: target });
     if (adxs.deletedCount === 1) {
-        console.log("An admin deleted chat "+target);
+      console.log("An admin deleted chat " + target);
     } else {
-        console.log("Unknown target error!");
+      console.log("Unknown target error!");
     }
     const result = await User.updateOne(
-    { "account.id": ids[0] },
-    {
-      $pull: {
-        "data.chats": {id:target}
+      { "account.id": ids[0] },
+      {
+        $pull: {
+          "data.chats": { id: target },
+        },
       }
-    });
+    );
     const result2 = await User.updateOne(
-    { "account.id": ids[1] },
-    {
-      $pull: {
-        "data.chats": {id:target}
+      { "account.id": ids[1] },
+      {
+        $pull: {
+          "data.chats": { id: target },
+        },
       }
-    });
-
+    );
   } catch (err) {
     console.error(err);
     return false;
@@ -156,13 +161,13 @@ async function deleteChatObject(target) {
 async function clearChat(id) {
   try {
     const result = await ChatData.updateOne(
-      { "identifier": id },
+      { identifier: id },
       {
-      "chat": []
-      });
+        chat: [],
+      }
+    );
 
-    return (result);
-
+    return result;
   } catch (err) {
     console.error(err);
     return false;
@@ -174,23 +179,22 @@ async function clearAllChats() {
     const result = await ChatData.updateMany(
       {},
       {
-        $set: { "chat": [] }
-      });
+        $set: { chat: [] },
+      }
+    );
 
     return result;
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-
 async function requestChat(coll, startIndex) {
   try {
-    const tuser = await User.findOne({"account.id": coll});
-    const result = await ChatData.findOne({ "identifier": coll });
-    if (!result) return false; 
+    const tuser = await User.findOne({ "account.id": coll });
+    const result = await ChatData.findOne({ identifier: coll });
+    if (!result) return false;
     let amx = result.chat;
 
     if (startIndex >= 0 && startIndex < amx.length) {
@@ -212,7 +216,7 @@ async function chkUsername(usr) {
   try {
     const players = await User.find({});
     for (let i = 0; i < players.length; i++) {
-      curref = players[i].account.username
+      curref = players[i].account.username;
       if (curref.toLowerCase() === usr.toLowerCase()) {
         return 0;
       }
@@ -275,8 +279,8 @@ async function u2id(ide) {
 async function requestUser(auth) {
   try {
     const result = await User.findOne({ "account.gsub": auth });
-    if (!result) return false; 
-    return result
+    if (!result) return false;
+    return result;
   } catch (err) {
     console.error(err);
     return false;
@@ -299,22 +303,22 @@ async function idToNameAndEmail(ide) {
   try {
     const player = await User.findOne({ "account.id": ide });
     if (!player) return false;
-    return {"name":player.account.username,"email":player.account.email};
+    return { name: player.account.username, email: player.account.email };
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-async function chatCheck(user,chatid) {
+async function chatCheck(user, chatid) {
   try {
-    const player = await ChatData.findOne({ "identifier": chatid });
+    const player = await ChatData.findOne({ identifier: chatid });
     if (!player) return false;
-    tempaspect = player.members
+    tempaspect = player.members;
     if (tempaspect.includes(user)) {
-      return(player)
+      return player;
     } else {
-      return false
+      return false;
     }
   } catch (err) {
     console.error(err);
@@ -333,32 +337,35 @@ async function checkExists(user) {
   }
 }
 
-async function pendingSend(receiver,sender,type) {
+async function pendingSend(receiver, sender, type) {
   try {
     const result = await User.updateOne(
       { "account.id": receiver },
       {
         $push: {
-          "data.pending": {receiver:type,user:sender}
+          "data.pending": { receiver: type, user: sender },
         },
-      });
+      }
+    );
     return true;
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-async function initChatA(receiver,sender,order) {
+async function initChatA(receiver, sender, order) {
   try {
     var chatid;
     if (order) {
-      chatid = sender+"_"+receiver;
+      chatid = sender + "_" + receiver;
     } else {
-      chatid = receiver+"_"+sender;
+      chatid = receiver + "_" + sender;
       const uafd = await User.findOne({ "account.id": receiver });
-      if (! uafd.data.friends.some(t => t.id == sender) || uafd.settings.allowChatsWithStrangers) {
+      if (
+        !uafd.data.friends.some((t) => t.id == sender) ||
+        uafd.settings.allowChatsWithStrangers
+      ) {
         return false;
       }
     }
@@ -366,88 +373,87 @@ async function initChatA(receiver,sender,order) {
       { "account.id": receiver },
       {
         $push: {
-          
           "data.chats": {
-            type:"d",
-            members:[sender,receiver],
-            status:0,
-            id:chatid,
-            viewdata:{
-              startIndex:0,
-              lastViewed:0
-            }
-          }
-          
+            type: "d",
+            members: [sender, receiver],
+            status: 0,
+            id: chatid,
+            viewdata: {
+              startIndex: 0,
+              lastViewed: 0,
+            },
+          },
         },
-      });
+      }
+    );
     return true;
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-
-async function frRespYes(responder,sender) {
+async function frRespYes(responder, sender) {
   try {
     const result = await User.updateOne(
       { "account.id": responder },
       {
         $push: {
-          "data.friends": {id:sender}
+          "data.friends": { id: sender },
         },
         $pull: {
-          "data.pending": {user:sender}
-        }
-      });
+          "data.pending": { user: sender },
+        },
+      }
+    );
     const result2 = await User.updateOne(
       { "account.id": sender },
       {
         $push: {
-          "data.friends": {id:responder}
+          "data.friends": { id: responder },
         },
         $pull: {
-          "data.pending": {user:responder}
-        }
-      });
+          "data.pending": { user: responder },
+        },
+      }
+    );
     return true;
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-async function frRespNo(responder,sender) {
+async function frRespNo(responder, sender) {
   try {
     const result = await User.updateOne(
       { "account.id": responder },
       {
         $pull: {
-          "data.pending": {user:sender}
-        }
-      });
+          "data.pending": { user: sender },
+        },
+      }
+    );
     const result2 = await User.updateOne(
       { "account.id": sender },
       {
         $pull: {
-          "data.pending": {user:responder}
-        }
-      });
+          "data.pending": { user: responder },
+        },
+      }
+    );
     return true;
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-async function chkInFriends(target,user) {
+async function chkInFriends(target, user) {
   try {
-    const player = await User.findOne({"account.id": target});
+    const player = await User.findOne({ "account.id": target });
     for (let i = 0; i < player.data.friends.length; i++) {
-      curref = player.data.friends[i].id
+      curref = player.data.friends[i].id;
       if (curref == user) {
         return true;
       }
@@ -459,36 +465,36 @@ async function chkInFriends(target,user) {
   }
 }
 
-async function chkInChats(target,user) {
+async function chkInChats(target, user) {
   try {
-    const player = await User.findOne({"account.id": target});
-    return player.data.chats.some(chat => chat.members.includes(user));
+    const player = await User.findOne({ "account.id": target });
+    return player.data.chats.some((chat) => chat.members.includes(user));
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-async function removeFriend(user,friend) {
+async function removeFriend(user, friend) {
   try {
-
     const result = await User.updateOne(
-    { "account.id": user },
-    {
-      $pull: {
-        "data.friends": {id:friend}
+      { "account.id": user },
+      {
+        $pull: {
+          "data.friends": { id: friend },
+        },
       }
-    });
+    );
     const result2 = await User.updateOne(
-    { "account.id": friend },
-    {
-      $pull: {
-        "data.friends": {id:user}
+      { "account.id": friend },
+      {
+        $pull: {
+          "data.friends": { id: user },
+        },
       }
-    });
+    );
 
     return true;
-
   } catch (err) {
     console.error(err);
     return false;
@@ -496,30 +502,30 @@ async function removeFriend(user,friend) {
 }
 
 async function shiftStartPointer(chatId_inherited, user_inherited, pointer) {
-    try {
-        const result = await User.updateOne(
-            {
-                "account.id": user_inherited,
-                "data.chats": { $elemMatch: { id: chatId_inherited } }
-            },
-            {
-                $set: {
-                    "data.chats.$.viewdata.startIndex": pointer
-                }
-            }
-        );
-        return true;
-    } catch (err) {
-        console.error(err);
-        return false;
-    }
+  try {
+    const result = await User.updateOne(
+      {
+        "account.id": user_inherited,
+        "data.chats": { $elemMatch: { id: chatId_inherited } },
+      },
+      {
+        $set: {
+          "data.chats.$.viewdata.startIndex": pointer,
+        },
+      }
+    );
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
 }
 
 async function chkGoogleAuth(usr) {
   try {
-    const player = await User.findOne({"account.gsub": usr});
-    if (!player) return {new:true,auth:usr};
-    return {new:false,auth:player.account.gsub};
+    const player = await User.findOne({ "account.gsub": usr });
+    if (!player) return { new: true, auth: usr };
+    return { new: false, auth: player.account.gsub };
   } catch (err) {
     console.error(err);
     return false;
@@ -532,9 +538,10 @@ async function onboardUser(auth, name) {
       { "account.gsub": auth },
       {
         $set: {
-          "account.username": name
+          "account.username": name,
         },
-      });
+      }
+    );
     return true;
   } catch (err) {
     console.error(err);
@@ -544,10 +551,10 @@ async function onboardUser(auth, name) {
 
 async function SSA(usr) {
   try {
-    const player = await User.findOne({"account.gsub": usr});
-    if (!player) return {status:"denied"};
-    if (!(player.account.username == "@UNSET")) return {status:"denied"};
-    return {status:"ok"};
+    const player = await User.findOne({ "account.gsub": usr });
+    if (!player) return { status: "denied" };
+    if (!(player.account.username == "@UNSET")) return { status: "denied" };
+    return { status: "ok" };
   } catch (err) {
     console.error(err);
     return false;
@@ -556,34 +563,62 @@ async function SSA(usr) {
 
 const pingCooldown = 5;
 
-async function checkPing(chatId,userId) {
+async function checkPing(chatId, userId) {
   try {
-    const chat = await ChatData.findOne({"identifier": chatId});
-    if (!chat) return {status:false,time:-1};
+    const chat = await ChatData.findOne({ identifier: chatId });
+    if (!chat) return { status: false, time: -1 };
     const now = new Date();
     if (chat.cooldowns.ping[userId] < now) {
       const dTime = new Date(now.getTime() + pingCooldown * 60000);
       const result = await ChatData.updateOne(
-        { "identifier": chatId },
+        { identifier: chatId },
         {
           $set: {
-            [`cooldowns.ping.${userId}`]:dTime
+            [`cooldowns.ping.${userId}`]: dTime,
           },
-        });
-        return {status:true,time:-1};
+        }
+      );
+      return { status: true, time: -1 };
     } else {
-      timeDiff = Math.ceil((chat.cooldowns.ping[userId].getTime() - now.getTime())/1000)
-      return {status:false,time:timeDiff};
+      timeDiff = Math.ceil(
+        (chat.cooldowns.ping[userId].getTime() - now.getTime()) / 1000
+      );
+      return { status: false, time: timeDiff };
     }
-
-
   } catch (err) {
     console.error(err);
     return false;
   }
 }
 
-console.log("db active")
+console.log("db active");
 
-module.exports = { postChat, requestChat, clearChat, clearAllChats, registerUser, chkUsername, vid, u2id, chkGoogleAuth, requestUser, idToName, chatCheck, checkExists, pendingSend, frRespYes,frRespNo, chkInFriends, chkInChats, createDMOnGeneric, initChatA, deleteChatObject, removeFriend, shiftStartPointer, onboardUser, SSA, idToNameAndEmail, checkPing }
-
+module.exports = {
+  postChat,
+  requestChat,
+  clearChat,
+  clearAllChats,
+  registerUser,
+  chkUsername,
+  vid,
+  u2id,
+  chkGoogleAuth,
+  requestUser,
+  idToName,
+  chatCheck,
+  checkExists,
+  pendingSend,
+  frRespYes,
+  frRespNo,
+  chkInFriends,
+  chkInChats,
+  createDMOnGeneric,
+  initChatA,
+  deleteChatObject,
+  removeFriend,
+  shiftStartPointer,
+  onboardUser,
+  SSA,
+  idToNameAndEmail,
+  checkPing,
+};

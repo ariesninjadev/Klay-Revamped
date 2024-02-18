@@ -1,214 +1,239 @@
 <title>Klay - Login</title>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
 <!-- JavaScript -->
 <script src="/alertify/jquery.min.js"></script>
 <script src="/alertify/foundation.min.js"></script>
 <script src="/alertify/notification.js"></script>
 <script src="https://accounts.google.com/gsi/client" async></script>
-<link rel="stylesheet" href="/alertify/notifstyle.css"/>
+<link rel="stylesheet" href="/alertify/notifstyle.css" />
 
 <style>
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-stretch: normal;
-  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVc.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans Condensed';
-  font-style: normal;
-  font-weight: 300;
-  src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDuXMQg.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Open Sans Condensed';
-  font-style: normal;
-  font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff0GmDuXMQg.ttf) format('truetype');
-}
-* {
-  box-sizing: border-box;
-}
-body {
-  font-family: 'open sans', helvetica, arial, sans;
-  background: url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.log-form {
-  width: 40%;
-  min-width: 320px;
-  max-width: 475px;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-}
-@media (max-width: 40em) {
-  .log-form {
-    width: 95%;
-    position: relative;
-    margin: 2.5% auto 0 auto;
-    left: 0%;
-    -webkit-transform: translate(0%, 0%);
-    -moz-transform: translate(0%, 0%);
-    -o-transform: translate(0%, 0%);
-    -ms-transform: translate(0%, 0%);
-    transform: translate(0%, 0%);
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 300;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVc.ttf)
+      format("truetype");
   }
-}
-.log-form form {
-  display: block;
-  width: 100%;
-  padding: 2em;
-}
-.log-form h2 {
-  color: #ffffff;
-  font-family: 'open sans condensed';
-  font-size: 1.35em;
-  display: block;
-  background: #2a2a2a;
-  width: 100%;
-  text-transform: uppercase;
-  padding: 0.75em 1em 0.75em 1.5em;
-  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
-  border: 1px solid #1d1d1d;
-  margin: 0;
-  font-weight: 200;
-}
-.log-form input {
-  display: block;
-  margin: auto auto;
-  width: 100%;
-  margin-bottom: 2em;
-  padding: 0.5em 0;
-  border: none;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 1.25em;
-  color: #757575;
-}
-.log-form input:focus {
-  outline: none;
-}
-.log-form .btn {
-  display: inline-block;
-  background: #f05bed;
-  border: 0px solid #1ba0a9;
-  padding: 0.5em 2em;
-  color: white;
-  margin-right: 0.5em;
-  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
-}
-.log-form .btn:hover {
-  background: #ed95ec;
-}
-.log-form .btn:active {
-  background: #eb1ce7;
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
-}
-.log-form .btn:focus {
-  outline: none;
-}
-.log-form .forgot {
-  color: #f05bed;
-  line-height: 0.5em;
-  position: relative;
-  top: 2.5em;
-  text-decoration: none;
-  font-size: 0.75em;
-  margin: 0;
-  padding: 0;
-  float: right;
-}
-.log-form .forgot:hover {
-  color: #f05bed;
-}
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+    src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4gaVc.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans Condensed";
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDuXMQg.ttf)
+      format("truetype");
+  }
+  @font-face {
+    font-family: "Open Sans Condensed";
+    font-style: normal;
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/opensanscondensed/v23/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff0GmDuXMQg.ttf)
+      format("truetype");
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "open sans", helvetica, arial, sans;
+    background: url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg)
+      no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .log-form {
+    width: 40%;
+    min-width: 320px;
+    max-width: 475px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 40em) {
+    .log-form {
+      width: 95%;
+      position: relative;
+      margin: 2.5% auto 0 auto;
+      left: 0%;
+      -webkit-transform: translate(0%, 0%);
+      -moz-transform: translate(0%, 0%);
+      -o-transform: translate(0%, 0%);
+      -ms-transform: translate(0%, 0%);
+      transform: translate(0%, 0%);
+    }
+  }
+  .log-form form {
+    display: block;
+    width: 100%;
+    padding: 2em;
+  }
+  .log-form h2 {
+    color: #ffffff;
+    font-family: "open sans condensed";
+    font-size: 1.35em;
+    display: block;
+    background: #2a2a2a;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 0.75em 1em 0.75em 1.5em;
+    box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid #1d1d1d;
+    margin: 0;
+    font-weight: 200;
+  }
+  .log-form input {
+    display: block;
+    margin: auto auto;
+    width: 100%;
+    margin-bottom: 2em;
+    padding: 0.5em 0;
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1.25em;
+    color: #757575;
+  }
+  .log-form input:focus {
+    outline: none;
+  }
+  .log-form .btn {
+    display: inline-block;
+    background: #f05bed;
+    border: 0px solid #1ba0a9;
+    padding: 0.5em 2em;
+    color: white;
+    margin-right: 0.5em;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+  }
+  .log-form .btn:hover {
+    background: #ed95ec;
+  }
+  .log-form .btn:active {
+    background: #eb1ce7;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  .log-form .btn:focus {
+    outline: none;
+  }
+  .log-form .forgot {
+    color: #f05bed;
+    line-height: 0.5em;
+    position: relative;
+    top: 2.5em;
+    text-decoration: none;
+    font-size: 0.75em;
+    margin: 0;
+    padding: 0;
+    float: right;
+  }
+  .log-form .forgot:hover {
+    color: #f05bed;
+  }
 </style>
 <div class="log-form">
-  <h2 style="text-align:center;">Klay</h2>
+  <h2 style="text-align: center">Klay</h2>
   <form id="lform" onsubmit="event.preventDefault();">
-    <span style="display:flex;justify-content:center;" id="oauthbtn"><div id="g_id_onload" data-client_id="633834763330-rno4lrnuodol8tfs3ma6g174jmuq27ug.apps.googleusercontent.com" data-context="signin" data-callback="idsb" data-ux_mode="popup" data-login_uri="/" data-auto_prompt="false"></div><div style="text-align:center;" class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="continue_with" data-size="large" data-logo_alignment="left"></div></span>
+    <span style="display: flex; justify-content: center" id="oauthbtn"
+      ><div
+        id="g_id_onload"
+        data-client_id="633834763330-rno4lrnuodol8tfs3ma6g174jmuq27ug.apps.googleusercontent.com"
+        data-context="signin"
+        data-callback="idsb"
+        data-ux_mode="popup"
+        data-login_uri="/"
+        data-auto_prompt="false"
+      ></div>
+      <div
+        style="text-align: center"
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="pill"
+        data-theme="filled_black"
+        data-text="continue_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div
+    ></span>
   </form>
 </div>
 <script src="socket.io.min.js"></script>
 <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 <script>
-  alertify.set('notifier','position', 'bottom-right');
-var socket = io();
-  function getCookie(name) { //WITHHELD
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
-function setCookie(name, value, days) { //WITHHELD
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-
-    if (getCookie("acc")) {
-      window.location.replace("/");
+  alertify.set("notifier", "position", "bottom-right");
+  var socket = io();
+  function getCookie(name) {
+    //WITHHELD
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
+    return null;
+  }
+  function setCookie(name, value, days) {
+    //WITHHELD
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  if (getCookie("acc")) {
+    window.location.replace("/");
+  }
 
   var email;
-  
-  
-  function idsb(s) { 
-         gauth = jwt_decode(s.credential).sub;
-         email = jwt_decode(s.credential).email;
-         event.preventDefault(); 
 
-         socket.emit("performGOOGLELogin",gauth,email);
+  function idsb(s) {
+    gauth = jwt_decode(s.credential).sub;
+    email = jwt_decode(s.credential).email;
+    event.preventDefault();
+
+    socket.emit("performGOOGLELogin", gauth, email);
   }
 
-  socket.on("loginResults",function (t) {
-    setCookie("acc",t.auth,365);
-    setCookie("email",email,365);
+  socket.on("loginResults", function (t) {
+    setCookie("acc", t.auth, 365);
+    setCookie("email", email, 365);
     if (t.new) {
       window.location.replace("/onboarding");
     } else {
       window.location.replace("/");
     }
-  })
+  });
 
   function aries() {
-    setCookie("acc","117466711415460738496",365);
-    setCookie("email","apowvalla26@jesuitmail.org",365);
+    setCookie("acc", "117466711415460738496", 365);
+    setCookie("email", "apowvalla26@jesuitmail.org", 365);
     location.reload();
   }
-  
 </script>

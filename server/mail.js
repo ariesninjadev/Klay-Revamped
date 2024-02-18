@@ -1,8 +1,7 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 // Email address that sends the emails
-const from = 'Klay <pings@theklay.xyz>';
-
+const from = "Klay <pings@theklay.xyz>";
 
 const messageTemplates = [
   "You've been summoned!",
@@ -56,31 +55,32 @@ const messageTemplates = [
   "Step up to the plate!",
   "Your involvement is crucial!",
   "Gear up for your mission!",
-]
+];
 
-async function ping(mailTo,id,username,pinger) {
-
-  const randMessage = messageTemplates[Math.floor(Math.random() * messageTemplates.length)];
+async function ping(mailTo, id, username, pinger) {
+  const randMessage =
+    messageTemplates[Math.floor(Math.random() * messageTemplates.length)];
 
   // Ask for email address
   const to = mailTo;
 
   // Create the email transport
   const transport = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  auth: {
-    user: 'aries.powvalla@gmail.com',
-    pass: 'dsdd unug hegb lzuv',
-  },
-});
+    host: "smtp.gmail.com",
+    port: 587,
+    auth: {
+      user: "aries.powvalla@gmail.com",
+      pass: "dsdd unug hegb lzuv",
+    },
+  });
 
   // Send the email
-  transport.sendMail({
-    from,
-    to,
-    subject: 'Klay - You\'ve been pinged!',
-    html: `
+  transport.sendMail(
+    {
+      from,
+      to,
+      subject: "Klay - You've been pinged!",
+      html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
        <head>
@@ -250,14 +250,15 @@ async function ping(mailTo,id,username,pinger) {
         </div>
        </body>
       </html>
-       `
-  }, (err, data) => {
-    return data;
-    if (err) {
-      console.error('There was an error:', err);
+       `,
+    },
+    (err, data) => {
+      return data;
+      if (err) {
+        console.error("There was an error:", err);
+      }
     }
-  });
-
+  );
 }
 
-module.exports = { ping }
+module.exports = { ping };
