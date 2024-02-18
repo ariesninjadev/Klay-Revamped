@@ -3,7 +3,7 @@
 
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg) 
 
-![Version 2.0.2](https://img.shields.io/badge/Version-2.0.2-blue)
+![Version 2.0.3 BETA](https://img.shields.io/badge/Version-2.0.3_BETA-blue)
 
 Klay is a modern, secure web-chat made for easy communication and distributed with configurability in mind.
 

@@ -1,10 +1,12 @@
 const express = require('express')
+var socketIO = require('socket.io');
 const app = express()
-const port = 3000
 const path = require('path');
-var server = require('http').Server(app);
+var http = require('http');
+var https = require('https');
 const dbc = require('./server/mon.js');
 const mail = require('./server/mail.js');
+var fs = require('fs');
 const crypto = require('crypto');
 
 function gsi() {
@@ -55,12 +57,28 @@ app.get('/chat/:chatid', function(req, res) {
 });
 
 
-server.listen(port);
-console.log("Running on localhost:"+port)
 
 
-var io = require('socket.io')(server);
-io.sockets.on('connection', function(socket) {
+var options = {
+  key: fs.readFileSync('SECURITY/keys/private.key'),
+  cert: fs.readFileSync('SECURITY/keys/certificate.crt'),
+};
+var httpsServer = https.createServer(options, app);
+
+// Redirect HTTP to HTTPS
+var httpServer = http.createServer(function (req, res) {
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+});
+
+httpsServer.listen(3001);
+httpServer.listen(3000);
+
+// Socket.IO setup
+var io = socketIO(httpsServer);
+
+// Handle socket connections
+io.on('connection', function(socket) {
   var chatId = socket.handshake.headers.referer.split('/').pop();
   socket.join(chatId);
 
