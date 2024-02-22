@@ -1,3 +1,4 @@
+const punycode = require('punycode/');
 const express = require("express");
 var socketIO = require("socket.io");
 const app = express();
@@ -45,9 +46,9 @@ app.get("/loading-animation", function (req, res) {
 
 var chatId;
 
-app.get("/testPageA8", function (req, res) {
-  res.sendFile(path.join(__dirname, "/pub/test.html"));
-});
+// app.get("/testPageA8", function (req, res) {
+//   res.sendFile(path.join(__dirname, "/pub/test.html"));
+// });
 
 app.get("/chat/:chatid", function (req, res) {
   chatId = req.params.chatid;
@@ -69,10 +70,10 @@ var httpServer = http.createServer(function (req, res) {
 });
 
 httpsServer.listen(3001);
-console.log("HTTPS Server running on port 3001 (443 External)");
+console.log("HTTPS Server running on port 3001");
 
 httpServer.listen(3000);
-console.log("HTTP Server running on port 3000 (80 External)");
+console.log("HTTP Redirect Server running on port 3000");
 
 // Socket.IO setup
 var io = socketIO(httpsServer);
@@ -82,17 +83,7 @@ io.on("connection", function (socket) {
   var chatId = socket.handshake.headers.referer.split("/").pop();
   socket.join(chatId);
 
-  if (chatId == "testPageA8") {
-    chatId = "1704746674555-427243_1704746610377-238626";
-  }
-
   // textraw, wasReceived, timeval, msgId=false, ping=false, r = false, rc = "", im = false, imc = ""
-
-  /* socket.emit("credentialdata",{"user1":{"name":u1_name,"pwd":u1_pwd,"cookie":u1_cookie},"user2":{"name":u2_name,"pwd":u2_pwd,"cookie":u2_cookie}})*/
-
-  /*
-  dbc.registerUser("ADMIN", "4292bd7cd65c90a1e61a46fc9786eb7f247d8d3789ea5a916687f9f6ec32db35", "100100", "1")
-  */
 
   socket.on("chatOutbound", function (msg) {
     dbc

@@ -217,6 +217,7 @@ var otherNAME;
 var otherEMAIL;
 
 socket.on("userdata", (resuse) => {
+
   resuser = resuse;
   var mcl = resuser.data.chats.length;
   if (resuser.account.status == 0) {
@@ -298,6 +299,7 @@ socket.on("userdata", (resuse) => {
 
     socket.emit("chatCheck", resuser.account.id, chatId);
   }
+  
 });
 
 (function () {
