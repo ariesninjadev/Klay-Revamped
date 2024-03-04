@@ -1,5 +1,7 @@
 // 3 sends: login, recieve, critera flipflop
 
+
+
 var emoji = new EmojiConvertor();
 
 function appendHtml(el, str) {
@@ -171,27 +173,29 @@ function off() {
     }
   }
   socket.emit("login", vdsi);
-  var link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = "/css/main.css";
+  // var link = document.createElement("link");
+  // link.rel = "stylesheet";
+  // link.type = "text/css";
+  // link.href = "/css/main.css";
 
-  // Append the link element to the head of the document
-  document.head.appendChild(link);
+  // // Append the link element to the head of the document
+  // document.head.appendChild(link);
 
-  // Define a function to be executed after the CSS file is loaded
-  function myFunctionT() {
-    overlayn = document.getElementById("overlayn");
-    if (overlayn) {
-      overlayn.remove();
-    }
-    if (getCookie("terms") != "true") {
-      modal.show();
-    }
-  }
+  // // Define a function to be executed after the CSS file is loaded
+  // function myFunctionT() {
+  //   overlayn = document.getElementById("overlayn");
+  //   if (overlayn) {
+  //     setTimeout(function () {
+  //       overlayn.remove();
+  //     }, 200);
+  //   }
+  //   if (getCookie("terms") != "true") {
+  //     modal.show();
+  //   }
+  // }
 
-  // Add an event listener to the link element to detect when it's loaded
-  link.onload = myFunctionT;
+  // // Add an event listener to the link element to detect when it's loaded
+  // link.onload = myFunctionT;
 }
 
 var d;
@@ -449,10 +453,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function scrollDownChatV() {
-    console.log("downed")
-    const container = $("#chat-messages-container")[0];
 
-    container.scrollTop = container.scrollHeight;
+    var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = "/css/main.css";
+
+  // Append the link element to the head of the document
+  document.head.appendChild(link);
+
+  // Define a function to be executed after the CSS file is loaded
+  function myFunctionT() {
+    overlayn = document.getElementById("overlayn");
+    if (overlayn) {
+      overlayn.remove();
+        const container = $("#chat-messages-container")[0];
+        container.scrollTop = container.scrollHeight;
+    }
+    if (getCookie("terms") != "true") {
+      modal.show();
+    }
+  }
+
+  // Add an event listener to the link element to detect when it's loaded
+  link.onload = myFunctionT;
   }
 
   function scrollDownChat() {

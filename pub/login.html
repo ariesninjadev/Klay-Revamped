@@ -2,11 +2,11 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
 <!-- JavaScript -->
-<script src="/alertify/jquery.min.js"></script>
-<script src="/alertify/foundation.min.js"></script>
-<script src="/alertify/notification.js"></script>
+<script src="/vendor/alertify/jquery.min.js"></script>
+<script src="/vendor/alertify/foundation.min.js"></script>
+<script src="/vendor/alertify/notification.js"></script>
 <script src="https://accounts.google.com/gsi/client" async></script>
-<link rel="stylesheet" href="/alertify/notifstyle.css" />
+<link rel="stylesheet" href="/vendor/alertify/notifstyle.css" />
 
 <style>
   @font-face {
@@ -52,8 +52,6 @@
   }
   body {
     font-family: "open sans", helvetica, arial, sans;
-    background: url(http://farm8.staticflickr.com/7064/6858179818_5d652f531c_h.jpg)
-      no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -164,7 +162,7 @@
         data-context="signin"
         data-callback="idsb"
         data-ux_mode="popup"
-        data-login_uri="/"
+        data-login_uri="https://klay.lol/"
         data-auto_prompt="false"
       ></div>
       <div
@@ -180,7 +178,7 @@
     ></span>
   </form>
 </div>
-<script src="socket.io.min.js"></script>
+<script src="/vendor/socket/socket.io.min.js"></script>
 <script src="https://unpkg.com/jwt-decode@3.1.2/build/jwt-decode.js"></script>
 <script>
   alertify.set("notifier", "position", "bottom-right");
