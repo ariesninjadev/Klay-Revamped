@@ -449,6 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function scrollDownChatV() {
+    console.log("downed")
     const container = $("#chat-messages-container")[0];
 
     container.scrollTop = container.scrollHeight;
@@ -1001,7 +1002,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
     }
-    setTimeout(scrollDownChatV(), 1000);
+    setTimeout(scrollDownChatV(), 100);
   });
 
   document.getElementById("form-wrap").onkeydown = function (e) {

@@ -16,12 +16,6 @@ function gsi() {
   return `${timestamp}-${random}`;
 }
 
-function hash(string) {
-  const hash = crypto.createHash("sha256");
-  hash.update(string);
-  return hash.digest("hex");
-}
-
 app.use(express.static(__dirname + "/scr"));
 // Render Html File
 app.get("/", function (req, res) {

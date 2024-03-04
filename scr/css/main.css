@@ -363,6 +363,17 @@ nav .panel-block {
   -webkit-animation-delay: 400ms;
 }
 
+.sidebar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg) #000;
+  direction:rtl;
+}
+
+.sidebar > * {
+  direction:ltr;
+}
+
 .timeblock {
   text-align: center;
   width: 100%;
@@ -371,6 +382,11 @@ nav .panel-block {
 
 .visualb {
   background-color: var(--sidebar-highlight);
+}
+
+img {
+  max-height: 400px;
+  width: auto;
 }
 
 .iconuni {
