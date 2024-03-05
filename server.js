@@ -55,6 +55,7 @@ var options = {
   key: fs.readFileSync("SECURITY/keys/private.key"),
   cert: fs.readFileSync("SECURITY/keys/certificate.crt"),
 };
+
 var httpsServer = https.createServer(options, app);
 
 // Redirect HTTP to HTTPS

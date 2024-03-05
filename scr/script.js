@@ -557,6 +557,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
+    // <div style="margin: auto;"><span class="fa-solid fa-ellipsis"></span></div>
+
     const replyButton = h(
       "button",
       {
@@ -564,10 +566,29 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       '<i class="fa-solid fa-reply"></i>'
     );
+
+    const menuButton = h(
+      "button",
+      {
+        class: "options-btn",
+      },
+      `<span class="fa-solid fa-ellipsis"></span>`
+    );
+
+    const menuContent = h(
+      "div",
+      {
+        class: "options-dd",
+      },
+      `<a href="#">Link 1</a>
+       <a href="#">Link 2</a>
+       <a href="#">Link 3</a>`
+    );
+
     if (rc == "") {
       secT = "Replying to image";
     } else {
-      secT = '"' + rc + '" ';
+      secT = '"' + rc + '"&nbsp;';
     }
     var wrapper = h(
       "div",
@@ -581,6 +602,12 @@ document.addEventListener("DOMContentLoaded", function () {
           : h("div", {
               class: "chat-message-push",
             }),
+
+            h("div", {
+              class: "chat-message-options",
+            },
+            [menuButton,menuContent]
+            ),
 
         // 2. Element
         h(
@@ -603,7 +630,7 @@ document.addEventListener("DOMContentLoaded", function () {
               {
                 class: "has-text-right is-size-7",
               },
-              [replyButton, h("time", {}, "   " + timet + " ")]
+              [replyButton, h("time", {}, "   " + timet + "&nbsp;")]
             ),
             r
               ? h(
@@ -639,9 +666,11 @@ document.addEventListener("DOMContentLoaded", function () {
       ]
     );
 
+    
+
     replyButton.addEventListener("click", function () {
       document.getElementById("chat-input").focus();
-      var vstxx = wrapper.textContent.split(" "); //NOTE: THIS IS NOT A SPACE. IT IS A HAIRSPACE.
+      var vstxx = wrapper.textContent.split("&nbsp;");
       var contxx = vstxx[vstxx.length - 1];
       targetmsg = contxx;
       document.getElementById("replycontent").innerHTML =
@@ -677,7 +706,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 class: "has-text-right",
                 style: "font-size:.7rem!important",
               },
-              " " //  HAIRSPACE
+              "&nbsp;"
             ),
             h(
               "div",

@@ -10,6 +10,14 @@
   --sidebar-highlight: #f5f5f5;
 }
 
+.options-btn {
+  display: none;
+}
+
+.options-btn > span {
+  margin: auto;
+}
+
 .reply-btn {
   display: none;
   color: black;
@@ -19,7 +27,11 @@
   margin-right: 4px;
 }
 
-.chat-message:hover .reply-btn {
+.chat-message-wrapper:hover .reply-btn {
+  display: inline-block;
+}
+
+.chat-message-wrapper:hover .options-btn {
   display: inline-block;
 }
 
@@ -87,6 +99,41 @@ button:disabled:hover {
     grid-template-columns: 0 1fr;
   }
 }
+
+
+
+/* The container <div> - needed to position the dropdown content */
+.chat-message-options {
+  position: relative;
+  display: inline-block;
+  height: 0;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.options-dd {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.options-dd a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.options-dd a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.chat-message-options:hover .options-dd {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
 
 #content {
   grid-area: content;

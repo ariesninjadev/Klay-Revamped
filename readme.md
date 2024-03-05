@@ -3,7 +3,7 @@
 
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg) 
 
-![Version 2.0.6 BETA](https://img.shields.io/badge/Version-2.0.6_BETA-blue)
+![Version 2.0.7 BETA](https://img.shields.io/badge/Version-2.0.7_BETA-blue)
 
 Klay is a modern, secure web-chat made for easy communication and distributed with configurability in mind.
 
@@ -18,10 +18,10 @@ Klay is a modern, secure web-chat made for easy communication and distributed wi
 - ~~Reply to messages~~ **Done**
 - ~~Ping users~~ **Done**
 - ~~Paste images~~ **Done**
-- Server+Client Optimization
+- ~~Server+Client Optimization~~ **Done (For Now)**
 - Message deletion / editing
-- Load >50 latest messages
 - Group Chats
+- Load >50 latest messages
 - Order chats / Unread message alerts
 - User online status
 - Themes
