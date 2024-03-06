@@ -1,7 +1,5 @@
 // 3 sends: login, recieve, critera flipflop
 
-
-
 var emoji = new EmojiConvertor();
 
 function appendHtml(el, str) {
@@ -221,7 +219,6 @@ var otherNAME;
 var otherEMAIL;
 
 socket.on("userdata", (resuse) => {
-
   resuser = resuse;
   var mcl = resuser.data.chats.length;
   if (resuser.account.status == 0) {
@@ -303,7 +300,6 @@ socket.on("userdata", (resuse) => {
 
     socket.emit("chatCheck", resuser.account.id, chatId);
   }
-  
 });
 
 (function () {
@@ -354,31 +350,32 @@ socket.on("userdata", (resuse) => {
 
   });*/
 
-socket.on("userToIdResult", function (exid) {
-  if (resuser.data.chats.some((e) => e.members.includes(exid))) {
-    alertify.error("You already have a chat with this user!");
-    return false;
-  }
-
-  if (exid == resuser.account.id) {
-    alertify.error("What the hell, thats you.");
-  } else {
-    if (!exid) {
-    } else {
-      socket.emit("checkAndSendC", exid, resuser.account.id);
+  socket.on("userToIdResult", function (exid) {
+    if (resuser.data.chats.some((e) => e.members.includes(exid))) {
+      alertify.error("You already have a chat with this user!");
+      return false;
     }
-  }
-});
+
+    if (exid == resuser.account.id) {
+      alertify.error("What the hell, thats you.");
+    } else {
+      if (!exid) {
+        alertify.error("User doesn't exist!");
+      } else {
+        socket.emit("checkAndSendC", exid, resuser.account.id);
+      }
+    }
+  });
 
 function caddsubmit() {
-  try {
-    let er = document.getElementById("caddusername").value.trim();
+    try {
+      let er = document.getElementById("caddusername").value.trim();
 
-    socket.emit("userToId", er);
-  } catch (e) {
-    alert("There was an error: " + e);
+      socket.emit("userToId", er);
+    } catch (e) {
+      alert("There was an error: " + e);
+    }
   }
-}
 
 function logout() {
   eraseCookie("acc");
@@ -453,30 +450,29 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function scrollDownChatV() {
-
     var link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = "/css/main.css";
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = "/css/main.css";
 
-  // Append the link element to the head of the document
-  document.head.appendChild(link);
+    // Append the link element to the head of the document
+    document.head.appendChild(link);
 
-  // Define a function to be executed after the CSS file is loaded
-  function myFunctionT() {
-    overlayn = document.getElementById("overlayn");
-    if (overlayn) {
-      overlayn.remove();
+    // Define a function to be executed after the CSS file is loaded
+    function myFunctionT() {
+      overlayn = document.getElementById("overlayn");
+      if (overlayn) {
+        overlayn.remove();
         const container = $("#chat-messages-container")[0];
         container.scrollTop = container.scrollHeight;
+      }
+      if (getCookie("terms") != "true") {
+        modal.show();
+      }
     }
-    if (getCookie("terms") != "true") {
-      modal.show();
-    }
-  }
 
-  // Add an event listener to the link element to detect when it's loaded
-  link.onload = myFunctionT;
+    // Add an event listener to the link element to detect when it's loaded
+    link.onload = myFunctionT;
   }
 
   function scrollDownChat() {
@@ -526,6 +522,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ) {
     var timexv = new Date(timeval);
 
+    let timet;
     try {
       xra = new Date(timeval);
       timet = fTime(xra);
@@ -579,10 +576,11 @@ document.addEventListener("DOMContentLoaded", function () {
       "div",
       {
         class: "options-dd",
+        id: "options-dd-" + msgId,
       },
-      `<a href="#">Link 1</a>
-       <a href="#">Link 2</a>
-       <a href="#">Link 3</a>`
+      `<a href="javascript:alertify.error('Coming soon (my bad)')"><i class="fa-solid fa-pencil cmi"></i>Edit</a>
+       <a href="javascript:alertify.error('Coming soon (my bad)')"><i class="fa-solid fa-face-smile-wink cmi"></i>React</a>
+       <a href="javascript:alertify.error('Coming soon (my bad)')"><i class="fa-solid fa-trash cmi"></i>Delete</a>`
     );
 
     if (rc == "") {
@@ -594,6 +592,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "div",
       {
         class: "chat-message-wrapper",
+        id: msgId,
       },
       [
         // 1. Element
@@ -603,10 +602,14 @@ document.addEventListener("DOMContentLoaded", function () {
               class: "chat-message-push",
             }),
 
-            h("div", {
-              class: "chat-message-options",
-            },
-            [menuButton,menuContent]
+        wasReceived
+          ? null
+          : h(
+              "div",
+              {
+                class: "chat-message-options",
+              },
+              msgId ? [menuButton, menuContent] : null
             ),
 
         // 2. Element
@@ -647,6 +650,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "div",
               {
                 class: "chat-message-content",
+                id: "c-" + msgId,
               },
               im
                 ? h(
@@ -666,13 +670,13 @@ document.addEventListener("DOMContentLoaded", function () {
       ]
     );
 
-    
-
     replyButton.addEventListener("click", function () {
       document.getElementById("chat-input").focus();
-      var vstxx = wrapper.textContent.split("&nbsp;");
-      var contxx = vstxx[vstxx.length - 1];
+      var contxx = document.getElementById("c-" + wrapper.id).innerText;
       targetmsg = contxx;
+      if (!contxx) {
+        contxx = "Image";
+      }
       document.getElementById("replycontent").innerHTML =
         '<button id="crp" style="cursor:pointer;margin-right:10px;background:none;border:0;"><i class="fa-solid fa-xmark"></i></button>Replying to: ' +
         contxx;
@@ -681,6 +685,28 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       replymode = true;
     });
+
+    menuButton.addEventListener("click", function (event) {
+      var contmenu = document.getElementById("options-dd-" + wrapper.id);
+      contmenu.style.display = "block";
+      
+      // Prevent click propagation to document
+      event.stopPropagation();
+  });
+  
+  // Add event listener to detect clicks on the document body
+  document.body.addEventListener("click", function (event) {
+      var contmenu = document.getElementById("options-dd-" + wrapper.id);
+      var targetElement = event.target;
+
+      if (!contmenu) return;
+      
+      // Check if the clicked element is not within the menu
+      if (!contmenu.contains(targetElement) && targetElement !== menuButton) {
+          contmenu.style.display = "none";
+      }
+  });
+  
 
     return wrapper;
   }
@@ -1399,6 +1425,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+function settings() {
+  alertify.error("Settings are not available yet.");
+}
+
 function deleteChatAdmin() {
   socket.emit("deleteChatObject", chatId, resuser.account.metadata.admin);
   window.location.href = "/home";
@@ -1421,6 +1451,10 @@ document.addEventListener("keydown", function (event) {
   // Check if any key is pressed
   if (event.key.length === 1) {
     // Focus on the chat input
-    chatInput.focus();
+    if (! modal3.isVisible()) {
+      chatInput.focus();
+    } else {
+      document.getElementById("caddusername").focus();
+    }
   }
 });

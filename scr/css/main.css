@@ -38,6 +38,7 @@
 html {
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
 }
 body {
   height: 100%;
@@ -106,17 +107,23 @@ button:disabled:hover {
 .chat-message-options {
   position: relative;
   display: inline-block;
-  height: 0;
+  height: 100%;
+  margin: auto;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .options-dd {
   display: none;
   position: absolute;
+  bottom: 100%;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  z-index: 9999999;
+}
+
+.cmi {
+  margin-right: 11px;
 }
 
 /* Links inside the dropdown */
@@ -131,7 +138,7 @@ button:disabled:hover {
 .options-dd a:hover {background-color: #ddd;}
 
 /* Show the dropdown menu on hover */
-.chat-message-options:hover .options-dd {display: block;}
+/* .chat-message-options:hover .options-dd {display: block;} */
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 
@@ -165,6 +172,9 @@ header {
 #chat > .card-content {
   overflow: auto;
   max-height: 100%;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #FFF;
 }
 
 footer {
