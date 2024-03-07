@@ -51,10 +51,14 @@ app.get("/chat/:chatid", function (req, res) {
   });
 });
 
+try {
 var options = {
   key: fs.readFileSync("SECURITY/keys/private.key"),
   cert: fs.readFileSync("SECURITY/keys/certificate.crt"),
 };
+} catch (e) {
+  throw new Error("SSL keys not found.")
+  };
 
 var httpsServer = https.createServer(options, app);
 
