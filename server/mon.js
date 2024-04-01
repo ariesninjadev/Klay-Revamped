@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 mongoose.set("strictQuery", true);
 mongoose.connect(
-  "mongodb+srv://ariesninja:attobro08@birdstore.0wcwtae.mongodb.net/aal",
+  "mongodb+srv://admin:ariesmongo123@ariesdb.cbmjd5h.mongodb.net/aal",
   { useNewUrlParser: true }
 );
 
